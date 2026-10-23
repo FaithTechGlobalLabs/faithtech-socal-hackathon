@@ -1,0 +1,44 @@
+const { chromium, devices } = require('playwright');
+const [P, BYP, JK, OUT] = process.argv.slice(2);
+const ok = (n, c, d) => console.log((c ? 'PASS ' : 'FAIL ') + n + (c ? '' : '  ' + (d || '')));
+(async () => {
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ ...devices['iPhone 13'], extraHTTPHeaders: { 'x-vercel-protection-bypass': BYP } });
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', (e) => errs.push(e.message));
+  await p.goto(P + '/#submit', { waitUntil: 'networkidle' });
+  const f = async (n, v) => p.fill('#sf-' + n, v);
+  await f('team_name', 'E2E Browser'); await p.check('input[name="challenge"][value="3"]');
+  await f('one_liner', 'Someone baptized this morning'); await f('what_it_does', 'Browser test row, delete me.');
+  await f('repo_url', 'https://github.com/example/browser'); await f('members', 'Test One\nTest Two');
+  await f('contact_name', 'Test One'); await f('contact_email', 'browser@example.com');
+  await p.click('#sf-submit');
+  await p.waitForSelector('#sf-done:not([hidden])', { timeout: 20000 }).catch(() => {});
+  const doneText = await p.textContent('#sf-done').catch(() => '');
+  const code = (/edit code is (\S+?)\.\s/i.exec(doneText) || [])[1] || (/(e2e browser\.[0-9a-f]{32})/.exec(doneText) || [])[1];
+  ok('form submit shows receipt with edit code', !!code, doneText.slice(0, 200));
+  await p.screenshot({ path: OUT + '/prod-390-receipt.png' });
+  // Fresh page: open by edit code, change, save
+  const p2 = await ctx.newPage();
+  await p2.goto(P + '/#submit', { waitUntil: 'networkidle' });
+  await p2.fill('#sf-find-code', code || 'none');
+  await p2.click('#sf-find button[type=submit]');
+  await p2.waitForFunction(() => document.getElementById('sf-team_name').value !== '', null, { timeout: 15000 }).catch(() => {});
+  ok('edit code prefills the form', (await p2.inputValue('#sf-team_name')) === 'E2E Browser', await p2.textContent('#sf-find-msg'));
+  await p2.fill('#sf-what_it_does', 'Edited in the browser.');
+  await p2.click('#sf-submit');
+  await p2.waitForSelector('#sf-done:not([hidden])', { timeout: 20000 }).catch(() => {});
+  ok('edit saves as an update', /updated/i.test(await p2.textContent('#sf-done').catch(() => '')));
+  // Judges in a browser: link sets cookie, shortlist shows team
+  const j = await ctx.newPage();
+  await j.goto(P + '/judges?view=shortlist&key=' + encodeURIComponent(JK), { waitUntil: 'networkidle' });
+  ok('judges link strips key from URL', !j.url().includes('key='), j.url().replace(JK, '<JK>'));
+  ok('judges shortlist shows the team', (await j.content()).includes('E2E Browser'));
+  ok('shortlist shows edited text', (await j.content()).includes('Edited in the browser'));
+  await j.screenshot({ path: OUT + '/judges-390.png' });
+  const anon = await (await b.newContext({ extraHTTPHeaders: { 'x-vercel-protection-bypass': BYP } })).newPage();
+  const r = await anon.goto(P + '/judges?view=shortlist');
+  ok('judges without link is 401', r.status() === 401 && !(await anon.content()).includes('E2E Browser'));
+  ok('no page JS errors', errs.length === 0, errs.join(' | '));
+  await b.close();
+})();

@@ -491,7 +491,7 @@ function field(label, text) {
   return text ? '<p class="lab-k">' + esc(label) + '</p><p class="lab-v">' + esc(text) + '</p>' : '';
 }
 
-const chip = (c) => '<span class="lab-chip">Ch ' + esc(c) + '</span>';
+const chip = (c) => '<span class="lab-chip">Track ' + esc(c) + '</span>';
 
 /* Who it is for, what it does, Repo / Demo: the same on every view. */
 function about(t, clamp) {
@@ -553,7 +553,7 @@ const VIEWS = [
 function stepState(v, opts) {
   if (v === 'shortlist') return opts.lock ? 'Closed' : 'Voting open';
   if (v === 'order') return opts.lock ? 'Locked ' + lockedAt(opts) : 'Top ' + (opts.n || FINALISTS);
-  if (v === 'score') return '35/30/20/15';
+  if (v === 'score') return 'Weighted';
   return opts.revealed ? 'Revealed' : 'Scores private';
 }
 /* The finalist count is server state, not a query parameter, so links carry
@@ -665,7 +665,7 @@ function shortlist(rows, opts, notice) {
   const count = (c) => teams.filter((t) => t.challenge === c).length;
   const bar = '<div class="lab-bar" aria-live="polite"><span class="lab-bar-main">Your picks <b id="lab-picks">0</b></span>' +
     '<span class="lab-prog">' + Object.keys(CHALLENGES).map((c) => '<a href="#c' + c + '" class="lab-prog-c" data-prog="' + c +
-      '" data-subs="' + count(c) + '">Ch ' + c + ' <b>—</b></a>').join('') + '</span>' +
+      '" data-subs="' + count(c) + '">Track ' + c + ' <b>—</b></a>').join('') + '</span>' +
     '<span class="lab-prog-ok" id="lab-prog-done" hidden>Every track has a pick</span></div>';
   const rule = open
     ? '<p class="lab-rule"><strong>Tap <em>Want to see this demo</em> on the teams you want on stage, at least one per track.</strong> ' +
@@ -803,7 +803,7 @@ function toolsPage(opts, rows, votes, scores, key, count) {
       ['Download contact emails', 'The submissions CSV has every team\u2019s contact email. Type the organizer key to download it.']) +
       toolForm(key, 'scores-csv', 'Scores CSV (with notes)', 'btn-ghost') +
     '<p class="lab-k">Clean up</p>' +
-    list('Remove a team', byName.map((t) => '<li><div class="lab-judge-row"><b>' + esc(t.team_name) + '</b><span class="lab-num">Ch ' +
+    list('Remove a team', byName.map((t) => '<li><div class="lab-judge-row"><b>' + esc(t.team_name) + '</b><span class="lab-num">Track ' +
       esc(t.challenge) + (t.versions > 1 ? ' · ' + t.versions + ' versions' : '') + '</span></div>' +
       toolForm(key, 'delete', 'Delete team…', 'btn-ghost lab-del', '<input type="hidden" name="delete" value="' + esc(t.id) + '">', ask('delete', { delete: t.id })) + '</li>')) +
     list('Remove a vote', live.map((v) => '<li><div class="lab-judge-row"><b>' + esc(v.judge_name) +
@@ -1202,7 +1202,7 @@ function winners(board) {
   return '<section class="lab-panel lab-win" aria-label="Standings"><p class="lab-k">Standings now · highest weighted score is Most Redemptive</p>' +
     (places.length ? '<ol class="lab-podium">' + places.map((t) => '<li><span class="lab-place">' +
       (t.tie ? 'Tie · ' : '') + ord[t.rank - 1] + '</span><span class="lab-podium-name">' + esc(t.team_name) +
-      '</span><span class="lab-podium-score">' + fmt(t.score) + '</span><span class="lab-muted">Ch ' + esc(t.challenge) + ' · ' +
+      '</span><span class="lab-podium-score">' + fmt(t.score) + '</span><span class="lab-muted">Track ' + esc(t.challenge) + ' · ' +
       plural(t.judges, 'judge') + '</span>' + tieText(t) + '</li>').join('') + '</ol>'
       : '<p class="prose">No team has ' + MIN_SCORES + ' listed-judge scores yet.</p>') +
     (award.length ? '<p class="lab-award"><b>Special award candidates</b> ' + award.map((a) => esc(a.label) + ': ' +

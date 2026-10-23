@@ -125,3 +125,4 @@ footer .partners img{height:26px}
 .qr h2::before{margin-left:auto;margin-right:auto}
 @media(max-width:420px){code.val{font-size:15px}}
 a.inl{display:inline-block;padding:12px 4px}
+#sf-done-msg p{overflow-wrap:anywhere}
