@@ -1,0 +1,13 @@
+church_id,church_name,pastor_name,country,city,language,phone_example,messaging_app,connection,registered,baptisms_2026
+T001,Iglesia Luz del Valle (TEST),Pastor Rubén Quispe (TEST),Peru,Cusco,es,+51 900 000 001,WhatsApp,2G,no,
+T002,Comunidad Agua Viva (TEST),Pastora Elena Mamani (TEST),Peru,Puno,es,+51 900 000 002,WhatsApp,3G,yes,14
+T003,Iglesia Nueva Esperanza (TEST),Pastor Luis Huamán (TEST),Peru,Lima,es,+51 900 000 003,WhatsApp,4G,yes,61
+T004,Igreja Fonte de Vida (TEST),Pastor João Silva (TEST),Brazil,Recife,pt,+55 00 90000 0004,WhatsApp,3G,no,
+T005,Igreja Batista Esperança (TEST),Pastora Ana Souza (TEST),Brazil,Manaus,pt,+55 00 90000 0005,WhatsApp,2G,yes,9
+T006,Comunidade Cristã do Rio (TEST),Pastor Marcos Lima (TEST),Brazil,Rio de Janeiro,pt,+55 00 90000 0006,Telegram,4G,yes,120
+T007,Grace Fellowship Tacloban (TEST),Pastor Ramon Dela Cruz (TEST),Philippines,Tacloban,tl,+63 900 000 0007,Facebook Messenger,3G,no,
+T008,Living Hope Davao (TEST),Pastor Grace Bautista (TEST),Philippines,Davao,en,+63 900 000 0008,SMS only,2G,yes,22
+T009,Iglesia El Camino (TEST),Pastor Andrés Torres (TEST),Peru,Arequipa,qu,+51 900 000 009,SMS only,2G,no,
+T010,Oceans Test Campus (TEST),Pastor Sam Lee (TEST),United States,Los Angeles,en,+1 555 010 0010,iMessage,5G,yes,48
+T011,Iglesia Bautista Central (TEST),Pastor Hugo Ramos (TEST),Peru,Trujillo,es,+51 900 000 011,WhatsApp,3G,yes,0
+T012,Igreja da Colina (TEST),Pastora Beatriz Costa (TEST),Brazil,Salvador,pt,+55 00 90000 0012,WhatsApp,3G,no,

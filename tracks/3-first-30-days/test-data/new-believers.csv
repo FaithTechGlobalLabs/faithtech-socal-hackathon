@@ -1,0 +1,7 @@
+person_id,first_name,baptized_on,church_id,church_name,language,channel,age_group,last_reply_day
+P01,Carla (TEST),2026-10-24,T003,Iglesia Nueva Esperanza (TEST),es,WhatsApp,18+,
+P02,Mateus (TEST),2026-10-24,T006,Comunidade Cristã do Rio (TEST),pt,WhatsApp,18+,
+P03,Jordan (TEST),2026-10-24,T010,Oceans Test Campus (TEST),en,SMS,under 18,
+P04,Rosa (TEST),2026-10-17,T002,Comunidad Agua Viva (TEST),es,SMS,18+,3
+P05,Paulo (TEST),2026-10-10,T005,Igreja Batista Esperança (TEST),pt,WhatsApp,18+,12
+P06,Mika (TEST),2026-10-03,T008,Living Hope Davao (TEST),en,SMS,18+,1
