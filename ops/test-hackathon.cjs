@@ -126,9 +126,9 @@ const good = { team_name: 'Team A', challenge: '1', one_liner: 'A pastor onboard
 const JH = { 'x-judges-key': 'judgesecret99' };
 const get = (q) => call(view, { method: 'GET', url: V + (q || ''), headers: JH });
 const post = (body) => call(view, { body, headers: JH });
-const scoreBody = (o) => ({ action: 'score', judge: 'Travis', team: 'team a', impact: 5, product: 4, demo: 3, care: 2, note: '', ...o });
+const scoreBody = (o) => ({ action: 'score', judge: 'Travis', team: 'team a', impact: 5, product: 4, demo: 3, note: '', ...o });
 
-test('submit: stores under EVENT_SLUG, names the track, requires a public GitHub repo', async () => {
+test('submit: stores under EVENT_SLUG, names the track, a repo must be a real GitHub link', async () => {
   const r = await call(submit, { body: good });
   assert.strictEqual(r.status, 200, r.body);
   assert.match(JSON.parse(r.body).message, /Track 1 \(Mobile-first church onboarding\)/);
@@ -168,11 +168,32 @@ test('submit: a taken name needs the edit code; the code fetches and edits; emai
   rows = rows.filter((r) => r.team_name === 'Team A');
 });
 
-test('weights are 35/30/20/15 and 5/4/3/2 is exactly 3.85', () => {
-  assert.strictEqual(view.weighted({ impact: 5, product: 4, demo: 3, care: 2 }), 3.85);
-  assert.strictEqual(view.weighted({ impact: 5, product: 5, demo: 5, care: 5 }), 5);
-  assert.strictEqual(view.validateScore(scoreBody({ care: undefined })).ok, false);
-  assert.strictEqual(view.validateScore(scoreBody({ care: 6 })).ok, false);
+test('submit: a GitHub repo OR a link is enough; neither is refused; video is stored', async () => {
+  const linkOnly = await call(submit, { body: { ...good, team_name: 'No Repo Team', repo_url: '', live_demo_url: 'https://www.figma.com/proto/abc',
+    demo_video_url: 'https://youtu.be/xyz', contact_email: 'nr@example.com' } });
+  assert.strictEqual(linkOnly.status, 200, linkOnly.body);
+  const row = rows.find((x) => x.team_name === 'No Repo Team');
+  assert.strictEqual(row.repo_url, '', 'no repo is stored as empty string (column is NOT NULL)');
+  assert.strictEqual(row.demo_video_url, 'https://youtu.be/xyz');
+  const neither = await call(submit, { body: { ...good, team_name: 'Nothing Team', repo_url: '', live_demo_url: '' } });
+  assert.strictEqual(neither.status, 400);
+  const fields = JSON.parse(neither.body).errors.map((e) => e.field);
+  assert.ok(fields.includes('repo_url') && fields.includes('live_demo_url'), fields.join());
+  const repoOnly = await call(submit, { body: { ...good, team_name: 'Repo Only', live_demo_url: '', contact_email: 'ro@example.com' } });
+  assert.strictEqual(repoOnly.status, 200, repoOnly.body);
+  const v = await get('?view=shortlist');
+  assert.match(v.body, /No Repo Team/);
+  assert.match(v.body, /youtu\.be\/xyz/);
+  rows = rows.filter((x) => x.team_name === 'Team A');
+});
+
+test('weights are 40/30/30 and 5/4/3 is exactly 4.1', () => {
+  assert.strictEqual(view.weighted({ impact: 5, product: 4, demo: 3 }), 4.1);
+  assert.strictEqual(view.weighted({ impact: 5, product: 5, demo: 5 }), 5);
+  assert.strictEqual(view.weighted({ impact: 1, product: 1, demo: 1 }), 1);
+  assert.strictEqual(view.validateScore(scoreBody({ demo: undefined })).ok, false);
+  assert.strictEqual(view.validateScore(scoreBody({ impact: 6 })).ok, false);
+  assert.deepStrictEqual(view.AREAS.map((a) => a[2]), [40, 30, 30]);
   assert.strictEqual(view.validateScore(scoreBody()).ok, true);
   assert.deepStrictEqual(view.JUDGES, ['Travis', 'Dana', 'Holly', 'Pastor Calin', 'Jesse']);
 });
@@ -187,7 +208,7 @@ test('judges pages are branded for the hackathon and carry no Impact Lab or Clau
     assert.doesNotMatch(r.body, /ada@example\.com/i, 'no contact email on the open page');
   }
   const score = await get('?view=score');
-  for (const t of ['Works live end to end', 'Baptize would adopt it', 'Usable by a non-technical pastor or new believer', 'Built the way we said']) {
+  for (const t of ['Redemptive potential', 'Usable by the end user', 'Technical viability']) {
     assert.ok(score.body.includes(t), t);
   }
   assert.match((await get('?view=shortlist')).body, /Mobile-first church onboarding/);
@@ -204,18 +225,19 @@ test('shortlist, lock, score, results: Most Redemptive is the top weighted score
   assert.strictEqual((await post({ action: 'vote', judge: 'Jesse', team: 'team a', on: true })).status, 409);
   for (const j of ['Travis', 'Dana']) {
     assert.strictEqual((await post(scoreBody({ judge: j }))).status, 200);
-    assert.strictEqual((await post(scoreBody({ judge: j, team: 'team b', impact: 3, product: 3, demo: 3, care: 3, note: 'ok' }))).status, 200);
+    assert.strictEqual((await post(scoreBody({ judge: j, team: 'team b', impact: 3, product: 3, demo: 3, note: 'ok' }))).status, 200);
   }
-  // care rides inside the note column and never shows as a prefix
-  assert.match(scores[0].note, /^\[c4:\d\] /);
+  // notes are stored as typed (no legacy [c4:N] prefix)
+  assert.strictEqual(scores[0].note, null);
   const mine = JSON.parse((await get('?format=scores.json&judge=Travis')).body).scores;
   const a = mine.find((x) => x.team_key === 'team a');
-  assert.strictEqual(a.care, 2);
+  assert.strictEqual(a.demo, 3);
+  assert.ok(!('care' in a));
   assert.strictEqual(a.note, null);
   assert.strictEqual(mine.find((x) => x.team_key === 'team b').note, 'ok');
   const res = (await get('?view=results')).body;
-  assert.match(res, /Most Redemptive[\s\S]*Team A[\s\S]*3\.85/);
-  assert.match(res, /35% works live \+ 30% Baptize would adopt/);
+  assert.match(res, /Most Redemptive[\s\S]*Team A[\s\S]*4\.10?/);
+  assert.match(res, /40% redemptive potential \+ 30% usable by the end user \+ 30% technical viability/);
   assert.match(res, /Scores private|private/i);
 });
 
@@ -235,8 +257,8 @@ test('organizer keys: tools need the typed key, nothing ships in a public page, 
   assert.strictEqual((await post({ action: 'reveal', admin: 'orgsecret99', confirm: '1' })).status, 303);
   const sc = await get('?format=scores.csv');
   assert.strictEqual(sc.status, 200);
-  assert.match(sc.body, /works_live,would_adopt,usable,built_right,weighted/);
-  assert.match(sc.body, /3\.85/);
+  assert.match(sc.body, /redemptive_potential,usable_by_end_user,technical_viability,weighted/);
+  assert.match(sc.body, /4\.10/);
 });
 
 test('judges key: no key is 401 on writes and data reads; the link sets a cookie; cookie works', async () => {

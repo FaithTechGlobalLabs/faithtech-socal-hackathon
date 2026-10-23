@@ -18,6 +18,13 @@ Pastors in Peru, Brazil and across Asia run their ministries on WhatsApp, not we
 
 ---
 
+## How Baptize does it today
+
+- **Registering a church is a web form only**: name, email, mobile, church name, country, language, consent, then a 6-digit code. You can't register by text or WhatsApp yet.
+- **Counts come in two ways**: the web dashboard, or a reply to a text. Texted counts are read automatically, but a person on the Baptize team confirms each one before it counts.
+- WhatsApp is saved as a preference only; nothing sends WhatsApp messages yet. Languages today: English, Spanish, Portuguese, French.
+- **There is no Baptize API to call.** Mock the save step and use the test data. Details: [How Baptize works today](../../docs/baptize-today.md).
+
 ## Test data
 
 - [`test-data/churches.csv`](test-data/churches.csv): 12 made-up churches in Peru, Brazil, the Philippines and the US, with language and connection quality.

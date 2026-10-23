@@ -70,14 +70,12 @@ const VOTES = 'impact_lab_votes';
 const SETTINGS = 'impact_lab_settings';
 const CSS_VER = '20261023a';
 /* [field, label, weight in percent, judge prompt] — weights sum to 100.
-   Keys are the existing score columns (impact, product, demo); `care` is the
-   fourth area and is stored inside the note column (see packNote / unpackNote)
-   because the shared scores table has only three score columns. */
+   Keys are the shared table's three score columns (impact, product, demo).
+   Criteria approved by Travis 10/23 and sent to Jesse: 40/30/30. */
 const AREAS = [
-  ['impact', 'Works live end to end', 35, 'Does the prototype actually run, start to finish, in front of you?'],
-  ['product', 'Baptize would adopt it', 30, 'Would Baptize The World put this to use for real people?'],
-  ['demo', 'Usable by a non-technical pastor or new believer', 20, 'Could a pastor or new believer use it without help?'],
-  ['care', 'Built the way we said', 15, 'Consent, honest data, team care: did they build it the way the day asked?'],
+  ['impact', 'Redemptive potential', 40, 'Could this advance the gospel and reach real people, beyond the demo?'],
+  ['product', 'Usable by the end user', 30, 'Could a pastor, a new believer or a church volunteer use it without us in the room?'],
+  ['demo', 'Technical viability', 30, 'Does it work live, end to end, and could it fit into Baptize\u2019s tech stack?'],
 ];
 /* The judges, as tap targets. "Other" takes free text; scores and votes under a
    name not on this list are marked so organizers can spot oddities. */
@@ -144,8 +142,8 @@ function recordFail(id) {
 
 /* ---- scoring math, finalists and validation (exported for tests) ------- */
 
-/* Weighted score in hundredths, integer math so 5/4/3 is exactly 415. */
-function weighted100(s) { return 35 * s.impact + 30 * s.product + 20 * s.demo + 15 * s.care; }
+/* Weighted score in hundredths, integer math so 5/4/3 is exactly 410. */
+function weighted100(s) { return 40 * s.impact + 30 * s.product + 30 * s.demo; }
 function weighted(s) { return weighted100(s) / 100; }
 
 function cleanLine(v) {
@@ -273,7 +271,7 @@ function parseN(raw) {
    impact average, earlier submission. Teams nobody has scored come last.
    Every scored team gets its own rank; `tie` says which rule split it from a
    neighbour with the same average. Teams under MIN_SCORES have no rank. */
-const TIE_RULE = 'Same average: more judges first, then the higher "works live" average, then the earlier submission.';
+const TIE_RULE = 'Same average: more judges first, then the higher redemptive-potential average, then the earlier submission.';
 function leaderboard(teams, scores) {
   const byTeam = new Map(teams.map((t) => [t.team_key, { ...t, scores: [] }]));
   scores.forEach((s) => { const t = byTeam.get(s.team_key); if (t) t.scores.push(s); });
@@ -282,7 +280,7 @@ function leaderboard(teams, scores) {
     const avg = (f) => (n ? t.scores.reduce((a, s) => a + s[f], 0) / n : null);
     return { ...t, judges: n, enough: n >= MIN_SCORES,
       score: n ? t.scores.reduce((a, s) => a + weighted100(s), 0) / (100 * n) : null,
-      impact: avg('impact'), product: avg('product'), demo: avg('demo'), care: avg('care'),
+      impact: avg('impact'), product: avg('product'), demo: avg('demo'),
       scores: t.scores.slice().sort((a, b) => weighted100(b) - weighted100(a) ||
         String(a.judge_name).localeCompare(String(b.judge_name))) };
   });
@@ -291,7 +289,7 @@ function leaderboard(teams, scores) {
     (same(a.score, b.score) ? 0 : (b.score || 0) - (a.score || 0)) ||
     b.judges - a.judges || (same(a.impact, b.impact) ? 0 : (b.impact || 0) - (a.impact || 0)) ||
     firstAt(a).localeCompare(firstAt(b)) || String(a.team_name).localeCompare(String(b.team_name)));
-  const why = (hi, lo) => hi.judges !== lo.judges ? 'more judges' : !same(hi.impact, lo.impact) ? 'higher works-live average' :
+  const why = (hi, lo) => hi.judges !== lo.judges ? 'more judges' : !same(hi.impact, lo.impact) ? 'higher redemptive-potential average' :
     'earlier submission';
   let rank = 0;
   rows.forEach((r, i) => {
@@ -323,20 +321,17 @@ async function readJson(env, path, what) {
 }
 const fetchRows = (env) => readJson(env, TABLE + '?select=*&' + SLUG_Q + '&order=created_at.asc', 'submission');
 const SCORE_COLS = 'id,created_at,updated_at,judge_name,team_key,team_name,challenge,impact,product,demo,note,ip_hash';
-/* The fourth area ("Built the way we said") has no column in the shared scores
-   table, so it rides at the front of the note as "[c4:N] ". packNote adds it on
-   write, unpackNote takes it off on read; no view ever sees the prefix. A row
-   without one (not written by this code) reads as 3. */
-const packNote = (care, note) => '[c4:' + care + '] ' + (note || '');
+/* An earlier four-area version stored a fourth score as a "[c4:N] " prefix in
+   the note. Nothing writes it now; unpackNote still strips it from old rows. */
 function unpackNote(row) {
   const m = /^\[c4:([1-5])\] ?/.exec(row.note || '');
   const note = m ? (row.note || '').slice(m[0].length) : (row.note || '');
-  return { ...row, care: m ? Number(m[1]) : 3, note: note || null };
+  return { ...row, note: note || null };
 }
 const fetchScores = async (env) => (await readJson(env, SCORES + '?select=' + SCORE_COLS + '&' + SLUG_Q + '&order=updated_at.asc', 'score')).map(unpackNote);
 /* What a judge's own phone needs back about one of their scores. */
 const ownScore = (s) => ({ judge_name: s.judge_name, team_key: s.team_key, impact: s.impact, product: s.product, demo: s.demo,
-  care: s.care, note: s.note, updated_at: s.updated_at });
+  note: s.note, updated_at: s.updated_at });
 const fetchVotes = (env) => readJson(env, VOTES + '?select=id,judge_name,team_key,team_name,created_at,updated_at,wanted,ip_hash&' + SLUG_Q + '&order=created_at.asc', 'vote');
 
 async function upsertScore(env, row) {
@@ -428,7 +423,7 @@ function markLatest(rows) {
 const judgeFields = (r) => ({
   team_name: normTeamName(r.team_name), challenge: r.challenge, created_at: r.created_at,
   one_liner: r.one_liner, what_it_does: r.what_it_does, repo_url: r.repo_url,
-  demo_url: r.live_demo_url || r.demo_video_url, members: (Array.isArray(r.members) ? r.members : [])
+  demo_url: r.live_demo_url || '', video_url: r.demo_video_url || '', members: (Array.isArray(r.members) ? r.members : [])
     .map((m) => (typeof m === 'string' ? m : (m && m.name) || '')).filter(Boolean),
   contact_name: r.contact_name });
 
@@ -447,7 +442,7 @@ function currentTeams(rows) {
     id: r.id, team_key: teamKey(r.team_name), team_name: normTeamName(r.team_name), challenge: r.challenge,
     created_at: r.created_at, first_at: first.get(teamKey(r.team_name)), versions: count.get(teamKey(r.team_name)),
     one_liner: r.one_liner, what_it_does: r.what_it_does, repo_url: r.repo_url,
-    demo_url: r.live_demo_url || r.demo_video_url, members: (Array.isArray(r.members) ? r.members : [])
+    demo_url: r.live_demo_url || '', video_url: r.demo_video_url || '', members: (Array.isArray(r.members) ? r.members : [])
       .map((m) => (typeof m === 'string' ? m : (m && m.name) || '')).filter(Boolean),
     contact_name: r.contact_name, suspect: r.suspect,
     history: rows.filter((o) => o.id !== r.id && teamKey(o.team_name) === teamKey(r.team_name))
@@ -493,14 +488,15 @@ function field(label, text) {
 
 const chip = (c) => '<span class="lab-chip">Track ' + esc(c) + '</span>';
 
-/* Who it is for, what it does, Repo / Demo: the same on every view. */
+/* Who it is for, what it does, Repo / Open it / Video: the same on every view. */
 function about(t, clamp) {
   const long = clamp && String(t.what_it_does || '').length > 160;
   return field('Who it is for', t.one_liner) + (long ? '<p class="lab-k">What it does</p><p class="lab-v lab-clamp">' +
       esc(t.what_it_does) + '</p><button type="button" class="lab-linkbtn lab-more" aria-expanded="false">More</button>' :
       field('What it does', t.what_it_does)) +
-    '<div class="lab-links">' + [link(t.repo_url, 'Repo'), t.demo_url ? link(t.demo_url, 'Demo', 'lab-btn--demo') :
-      '<span class="lab-muted">No demo link</span>'].join('') + '</div>';
+    '<div class="lab-links">' + [link(t.repo_url, 'Repo'), link(t.demo_url, 'Open it', 'lab-btn--demo'),
+      link(t.video_url, 'Video', 'lab-btn--demo'),
+      t.demo_url || t.video_url ? '' : '<span class="lab-muted">No demo link</span>'].join('') + '</div>';
 }
 
 /* The card shows every judge-facing field of the latest version (who it is for,
@@ -513,7 +509,8 @@ const VERSION_FIELDS = [
   ['Who it is for', (v) => v.one_liner],
   ['What it does', (v) => v.what_it_does],
   ['Repo link', (v) => v.repo_url],
-  ['Demo link', (v) => v.demo_url || ''],
+  ['Link to see it', (v) => v.demo_url || ''],
+  ['Demo video', (v) => v.video_url || ''],
   ['Team members', (v) => v.members.join('\n')],
   ['Contact', (v) => v.contact_name],
 ];
@@ -880,8 +877,8 @@ function describe(action, body, opts, rows, votes, scores) {
   if (action === 'delete-score') {
     const x = scores.find((r) => r.id === String(body.id));
     if (!x) return null;
-    return ['Remove a score', 'Remove ' + x.judge_name + '’s score for ' + q(x.team_name || x.team_key) + ' (Works ' + x.impact +
-      ' · Adopt ' + x.product + ' · Usable ' + x.demo + ' · Care ' + x.care + ', ' + fmt(weighted(x)) + '). This can’t be undone.'];
+    return ['Remove a score', 'Remove ' + x.judge_name + '’s score for ' + q(x.team_name || x.team_key) + ' (Redemptive ' + x.impact +
+      ' · Usable ' + x.product + ' · Viable ' + x.demo + ', ' + fmt(weighted(x)) + '). This can’t be undone.'];
   }
   const x = votes.find((r) => r.id === String(body.id));
   if (!x) return null;
@@ -1004,7 +1001,7 @@ function scoreCard(t) {
 const SCORE_SCRIPT = `(function(){
 ${NAME_JS}
 var nextTeam=${nextTeam.toString()};
-var W={impact:35,product:30,demo:20,care:15},mine={},draft={},loaded=false,
+var W={impact:40,product:30,demo:30},mine={},draft={},loaded=false,
   cards=[].slice.call(document.querySelectorAll('.lab-scard')),
   order=cards.filter(function(c){return c.dataset.final}).map(function(c){return c.dataset.team}),
   prog=document.getElementById('lab-prog'),others=document.getElementById('lab-others');
@@ -1012,10 +1009,10 @@ function dk(t){return 'labDraft:'+get().toLowerCase()+'|'+t}
 function keep(t){try{if(draft[t])localStorage.setItem(dk(t),JSON.stringify(draft[t]));else localStorage.removeItem(dk(t))}catch(e){}}
 function drafts(){draft={};if(!get())return;cards.forEach(function(c){var t=c.dataset.team;try{var d=JSON.parse(localStorage.getItem(dk(t))||'null');if(d)draft[t]=d}catch(e){}})}
 function card(t){for(var i=0;i<cards.length;i++)if(cards[i].dataset.team===t)return cards[i];return null}
-function total(s){return s&&s.impact&&s.product&&s.demo&&s.care?((W.impact*s.impact+W.product*s.product+W.demo*s.demo+W.care*s.care)/100).toFixed(2):''}
+function total(s){return s&&s.impact&&s.product&&s.demo?((W.impact*s.impact+W.product*s.product+W.demo*s.demo)/100).toFixed(2):''}
 function scored(){var m={};Object.keys(mine).forEach(function(k){m[k]=true});return m}
 function cur(t){return draft[t]||mine[t]||{}}
-function same(a,b){return a&&b&&a.impact===b.impact&&a.product===b.product&&a.demo===b.demo&&a.care===b.care&&(a.note||'')===(b.note||'')}
+function same(a,b){return a&&b&&a.impact===b.impact&&a.product===b.product&&a.demo===b.demo&&(a.note||'')===(b.note||'')}
 function dirty(t){return !!draft[t]&&!same(draft[t],mine[t])}
 function status(el,t,bad){var p=el.querySelector('[data-status]');p.textContent=t;p.classList.toggle('lab-bad',!!bad)}
 function paint(el){var t=el.dataset.team,s=cur(t),saved=mine[t],d=dirty(t);
@@ -1033,7 +1030,7 @@ function load(){var n=get(),was=mine,first=!loaded;mine={};
   if(!n){draft={};loaded=false;cards.forEach(paint);progress();return}
   if(first)drafts();
   fetch(SELF+'?format=scores.json&judge='+encodeURIComponent(n),{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
-    (d.scores||[]).forEach(function(s){mine[s.team_key]={impact:s.impact,product:s.product,demo:s.demo,care:s.care,note:s.note||'',updated_at:s.updated_at}});
+    (d.scores||[]).forEach(function(s){mine[s.team_key]={impact:s.impact,product:s.product,demo:s.demo,note:s.note||'',updated_at:s.updated_at}});
     if(!first)Object.keys(mine).concat(Object.keys(was)).forEach(function(t){var a=was[t],b=mine[t],el=card(t);
       if(!el||(a&&b&&a.updated_at===b.updated_at)||(!a&&!b))return;
       status(el,dirty(t)?'Updated on another device. Check, then save again.':'Updated on another device.',dirty(t))});
@@ -1053,13 +1050,13 @@ function openCard(el){cards.forEach(function(c){if(c!==el)c.open=false});
 function edit(t){var s=draft[t]=draft[t]||JSON.parse(JSON.stringify(cur(t)));delete s.updated_at;return s}
 function save(el){var t=el.dataset.team,s=cur(t),nb=el.querySelector('.lab-nextbtn'),btn=el.querySelector('.lab-save');
   if(!get()){status(el,'Pick your name at the top first.',true);askName();return}
-  if(!(s.impact&&s.product&&s.demo&&s.care)){status(el,'Tap 1 to 5 in all four areas, then Save.',true);return}
+  if(!(s.impact&&s.product&&s.demo)){status(el,'Tap 1 to 5 in all three areas, then Save.',true);return}
   btn.disabled=true;status(el,'Saving\\u2026');
-  post({action:'score',judge:get(),team:t,impact:s.impact,product:s.product,demo:s.demo,care:s.care,note:s.note||'',
+  post({action:'score',judge:get(),team:t,impact:s.impact,product:s.product,demo:s.demo,note:s.note||'',
     base:mine[t]?mine[t].updated_at||null:null}).then(function(x){btn.disabled=false;
     if(!x.ok&&x.d&&x.d.code==='stale'){status(el,'Updated on another device. Check, then save again.',true);load();return}
     if(!x.ok){status(el,'Not saved: '+why(x.d),true);return}
-    mine[t]={impact:s.impact,product:s.product,demo:s.demo,care:s.care,note:s.note||'',updated_at:x.d.score&&x.d.score.updated_at};
+    mine[t]={impact:s.impact,product:s.product,demo:s.demo,note:s.note||'',updated_at:x.d.score&&x.d.score.updated_at};
     delete draft[t];keep(t);paint(el);progress();
     var nx=after(t),c=nx&&card(nx);
     status(el,'\\u2713 Saved: '+total(mine[t])+' / 5'+(c?'':order.length?'. Every finalist is scored.':''));
@@ -1071,7 +1068,7 @@ cards.forEach(function(el){var t=el.dataset.team;
     if(!get()){status(el,'Pick your name at the top first.',true);askName();return}
     var s=edit(t);s[b.dataset.area]=+b.dataset.n;keep(t);paint(el);
     el.querySelector('.lab-nextbtn').hidden=true;
-    status(el,same(s,mine[t])?'Saved':s.impact&&s.product&&s.demo&&s.care?'Not saved yet: tap '+(mine[t]?'Update score':'Save score')+'.':'Tap all four areas, then Save.')});
+    status(el,same(s,mine[t])?'Saved':s.impact&&s.product&&s.demo?'Not saved yet: tap '+(mine[t]?'Update score':'Save score')+'.':'Tap all three areas, then Save.')});
   var note=el.querySelector('.lab-note');
   note.addEventListener('input',function(){var s=edit(t);s.note=note.value.trim();keep(t);paint(el);
     if(!same(s,mine[t]))status(el,'Not saved yet: tap '+(mine[t]?'Update score':'Save score')+'.')});
@@ -1118,8 +1115,8 @@ function breakdown(t, revealed) {
   return '<details class="lab-older lab-breakdown"><summary>' + esc(label) + '</summary><ul class="lab-judges">' +
     all.map((s) => '<li><div class="lab-judge-row"><b>' + esc(s.judge_name) +
       (isListed(s.judge_name) ? '' : ' <span class="lab-flag">Other · not counted</span>') + '</b><span class="lab-num">' +
-      fmt(weighted(s)) + '</span></div><span class="lab-muted">Works ' + s.impact + ' · Adopt ' + s.product +
-      ' · Usable ' + s.demo + ' · Care ' + s.care + '</span>' + (s.note ? '<span class="lab-note-text">' + esc(s.note) + '</span>' : '') +
+      fmt(weighted(s)) + '</span></div><span class="lab-muted">Redemptive ' + s.impact + ' · Usable ' + s.product +
+      ' · Viable ' + s.demo + '</span>' + (s.note ? '<span class="lab-note-text">' + esc(s.note) + '</span>' : '') +
       '</li>').join('') + '</ul></details>';
 }
 
@@ -1134,7 +1131,7 @@ function rankRow(t, showChallenge, revealed) {
       (showChallenge ? '<span class="lab-muted">' + esc(t.challenge) + ' · ' + esc(CHALLENGES[t.challenge] || '') + '</span>' : '') + '</div>' +
     '<span class="lab-rank-score">' + fmt(t.score) + '</span></div>' +
     '<p class="lab-muted lab-rank-meta">' + t.judges + ' of ' + JUDGES.length + ' judges' +
-      (t.judges ? ' · Works ' + fmt(t.impact, 1) + ' · Adopt ' + fmt(t.product, 1) + ' · Usable ' + fmt(t.demo, 1) + ' · Care ' + fmt(t.care, 1) : ' · not scored yet') +
+      (t.judges ? ' · Redemptive ' + fmt(t.impact, 1) + ' · Usable ' + fmt(t.product, 1) + ' · Viable ' + fmt(t.demo, 1) : ' · not scored yet') +
       (few ? ' <span class="lab-flag lab-flag--warn">Not enough scores: ranked below</span>' : '') +
       '</p>' + tieText(t) + breakdown(t, revealed) + '</li>';
 }
@@ -1244,7 +1241,7 @@ function results(rows, scores, votes, opts, notice) {
     '<p class="lab-muted lab-judge-meta">' + plural(board.length, 'team') + ' · ' + judges + ' of ' + JUDGES.length + ' judges scoring · ' +
       '<span id="lab-auto">Refreshes every minute</span></p>' +
     '<details class="lab-how"><summary>How ranking works</summary><ul class="lab-rules">' +
-      '<li>Score = 35% works live + 30% Baptize would adopt + 20% usable by a pastor or new believer + 15% built the way we said (1 to 5), averaged across ' + esc(JUDGES.join(', ')) + '. Other names are shown, not counted.</li>' +
+      '<li>Score = 40% redemptive potential + 30% usable by the end user + 30% technical viability (1 to 5), averaged across ' + esc(JUDGES.join(', ')) + '. Other names are shown, not counted.</li>' +
       '<li>Teams with fewer than ' + MIN_SCORES + ' scores rank below the rest.</li><li>' + esc(TIE_RULE) + '</li></ul></details>' +
     '<section class="lab-group"><h2 class="lab-group-title"><span class="label">All tracks</span>Overall</h2>' +
     (board.length ? '<ol class="lab-board">' + board.map((t) => rankRow(t, true, opts.revealed)).join('') + '</ol>' : '<p class="prose lab-empty">No submissions yet.</p>') +
@@ -1263,10 +1260,10 @@ function csvCell(v) {
 
 function csv(rows) {
   const head = ['submitted_at_pt', 'latest_for_team', 'team_name', 'track', 'one_liner', 'what_it_does',
-    'repo_url', 'demo_url', 'members', 'contact_name', 'contact_email', 'id'];
+    'repo_url', 'link_url', 'demo_video_url', 'members', 'contact_name', 'contact_email', 'id'];
   const lines = markLatest(rows).map((r) => [
     pt(r.created_at), r.latest ? 'yes' : 'no', r.team_name, r.challenge + ' ' + (CHALLENGES[r.challenge] || ''),
-    r.one_liner, r.what_it_does, r.repo_url, r.live_demo_url || r.demo_video_url,
+    r.one_liner, r.what_it_does, r.repo_url, r.live_demo_url, r.demo_video_url,
     (Array.isArray(r.members) ? r.members : []).join('; '), r.contact_name, r.contact_email, r.id,
   ].map(csvCell).join(','));
   return '﻿' + [head.join(',')].concat(lines).join('\r\n') + '\r\n';
@@ -1274,10 +1271,10 @@ function csv(rows) {
 
 function scoresCsv(rows, scores) {
   const current = new Set(currentTeams(rows).map((t) => t.team_key));
-  const head = ['team_name', 'track', 'judge_name', 'works_live', 'would_adopt', 'usable', 'built_right', 'weighted', 'note',
+  const head = ['team_name', 'track', 'judge_name', 'redemptive_potential', 'usable_by_end_user', 'technical_viability', 'weighted', 'note',
     'updated_at_pt', 'team_has_current_submission'];
   const lines = scores.map((s) => [s.team_name, s.challenge + ' ' + (CHALLENGES[s.challenge] || ''), s.judge_name,
-    s.impact, s.product, s.demo, s.care, weighted(s).toFixed(2), s.note, pt(s.updated_at || s.created_at),
+    s.impact, s.product, s.demo, weighted(s).toFixed(2), s.note, pt(s.updated_at || s.created_at),
     current.has(s.team_key) ? 'yes' : 'no'].map(csvCell).join(','));
   return '﻿' + [head.join(',')].concat(lines).join('\r\n') + '\r\n';
 }
@@ -1314,12 +1311,12 @@ async function handleScore(req, res, env, body, ipId) {
       return json(res, 409, { ok: false, code: 'stale', message: 'Updated on another device, check and save again.' });
     }
   }
-  const { care, note, ...cols } = v.value;
-  const saved = await upsertScore(env, { event_slug: EVENT_SLUG, ...cols, note: packNote(care, note), team_key: team.team_key,
+  const { note, ...cols } = v.value;
+  const saved = await upsertScore(env, { event_slug: EVENT_SLUG, ...cols, note, team_key: team.team_key,
     team_name: team.team_name.slice(0, 120), challenge: team.challenge, ip_hash: ipId,
     updated_at: new Date().toISOString() });
   return json(res, 200, { ok: true, score: { judge_name: saved && saved.judge_name, team_key: team.team_key,
-    impact: v.value.impact, product: v.value.product, demo: v.value.demo, care: v.value.care, note: v.value.note,
+    impact: v.value.impact, product: v.value.product, demo: v.value.demo, note: v.value.note,
     weighted: weighted(v.value), updated_at: saved && saved.updated_at } });
 }
 
@@ -1547,3 +1544,4 @@ module.exports.lineup = lineup;
 module.exports.TIE_RULE = TIE_RULE;
 module.exports.JUDGES = JUDGES;
 module.exports._FAILS = FAILS;
+module.exports.AREAS = AREAS;

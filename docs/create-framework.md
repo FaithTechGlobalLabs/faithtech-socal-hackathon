@@ -48,10 +48,10 @@ Steward is about looking after what you were given: the work, the team and what 
 2. How did your team experience it?
 3. What did God do?
 
-The demo is 90 seconds of a working prototype, then your answer to those last two questions.
+The demo is 3 minutes: the person you built it for, the prototype working, then your answer to those last two questions.
 It is a demo, not a pitch.
 
-**After today,** your work lives in a public GitHub repo. That is not about ownership. It means
+**After today,** your work lives somewhere public: a GitHub repo if you have one, or a link. That is not about ownership. It means
 that if your team steps back, someone else can pick the work up and keep stewarding it. See
 [submission](submission.md).
 

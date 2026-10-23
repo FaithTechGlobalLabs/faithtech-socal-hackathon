@@ -18,6 +18,13 @@ Baptism happens on one Sunday. What happens in the weeks after depends on whethe
 
 ---
 
+## How Baptize does it today
+
+- People sign up at "Get baptized" (name, email, phone, location, 16 or older), and Baptize tracks their status through to baptized, plus their church.
+- After that there are three static next-steps cards (connect with a church, read John, share your story), in English only. Follow-up is email only.
+- **There is no 30-day journey and nothing by text or WhatsApp.** That's the gap.
+- **There is no Baptize API to call.** Mock the save step and use the test data. Details: [How Baptize works today](../../docs/baptize-today.md).
+
 ## Test data
 
 - [`test-data/30-day-outline.md`](test-data/30-day-outline.md): a simple plan built on the Gospel of John, which the Next Steps page already points to. Days 22 to 30 are left for your team or the local church.

@@ -126,3 +126,4 @@ footer .partners img{height:26px}
 @media(max-width:420px){code.val{font-size:15px}}
 a.inl{display:inline-block;padding:12px 4px}
 #sf-done-msg p{overflow-wrap:anywhere}
+.demo-prompt summary{cursor:pointer;padding:4px 0}.demo-prompt pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 "IBM Plex Mono",ui-monospace,monospace;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0;color:var(--paper)}

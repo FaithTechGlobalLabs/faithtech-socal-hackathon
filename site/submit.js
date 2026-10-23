@@ -38,7 +38,8 @@
     '#submit-form .box{margin:18px 0;padding:14px 16px;border:1px solid #38382c;border-radius:12px;background:#1f1f15}' +
     '#submit-form .note{margin:14px 0 0;min-height:1.4em}' +
     '#submit-form [hidden]{display:none!important}' +
-    '#submit-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}';
+    '#submit-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}' +
+    '#submit-form .either-note{margin:22px 0 4px;padding:10px 12px;border-left:3px solid var(--gold,#FFD700);font-weight:600}';
   document.head.appendChild(css);
 
   function el(tag, attrs, kids) {
@@ -57,7 +58,7 @@
     var input = opts.area ? el('textarea', { id: id, name: name, rows: String(opts.rows || 4) })
       : el('input', { id: id, name: name, type: opts.type || 'text' });
     if (opts.max) input.setAttribute('maxlength', String(opts.max));
-    if (!opts.optional) input.setAttribute('required', '');
+    if (!opts.optional && !opts.either) input.setAttribute('required', '');
     if (opts.auto) input.setAttribute('autocomplete', opts.auto);
     if (opts.inputmode) input.setAttribute('inputmode', opts.inputmode);
     if (opts.placeholder) input.setAttribute('placeholder', opts.placeholder);
@@ -98,10 +99,13 @@
     tracks,
     field('one_liner', 'Who it is for', { max: 200, help: 'One line. For example: a pastor in Lagos who registers a church by text.' }),
     field('what_it_does', 'What it does', { area: true, rows: 5, max: 1200, help: 'A few sentences. What a person can do with it today.' }),
-    field('repo_url', 'Public GitHub repo link', { type: 'url', max: 500, inputmode: 'url', placeholder: 'https://github.com/your-team/your-repo',
-      help: 'Must be public. We read it for stewardship, not IP.' }),
-    field('live_demo_url', 'Demo video or live app link', { type: 'url', max: 500, inputmode: 'url', optional: true,
-      help: 'Optional. Ask Claude to click through your prototype and record a walkthrough.' }),
+    el('p', { 'class': 'either-note', text: 'Your project: a GitHub repo, a link we can open, or both. One is enough.' }),
+    field('repo_url', 'GitHub repo', { type: 'url', max: 500, inputmode: 'url', either: true, placeholder: 'https://github.com/your-team/your-repo',
+      help: 'If you have one. Public, so we can read it for stewardship, not IP.' }),
+    field('live_demo_url', 'Link to see it', { type: 'url', max: 500, inputmode: 'url', either: true, placeholder: 'https://',
+      help: 'A live app, a prototype (Figma, Lovable, Replit), slides or a doc. Anything a judge can open on a phone.' }),
+    field('demo_video_url', 'Demo video', { type: 'url', max: 500, inputmode: 'url', optional: true, placeholder: 'https://',
+      help: 'A 60 to 90 second walkthrough (YouTube, Loom, Google Drive). The prompt for making one is just below this form.' }),
     field('members', 'Team members', { area: true, rows: 4, max: 1000, help: 'One name per line, up to 10. Everyone has a role.' }),
     field('contact_name', 'Contact name', { max: 120, auto: 'name' }),
     field('contact_email', 'Contact email', { type: 'email', max: 254, auto: 'email', help: 'For organizers to reach your team.' }),
@@ -196,7 +200,7 @@
     button.textContent = label();
   }
   function fill(t, code) {
-    ['team_name', 'one_liner', 'what_it_does', 'repo_url', 'live_demo_url', 'members', 'contact_name', 'contact_email'].forEach(function (k) {
+    ['team_name', 'one_liner', 'what_it_does', 'repo_url', 'live_demo_url', 'demo_video_url', 'members', 'contact_name', 'contact_email'].forEach(function (k) {
       if (form.elements[k]) form.elements[k].value = t[k] || '';
     });
     var radio = form.querySelector('input[name="challenge"][value="' + t.challenge + '"]');

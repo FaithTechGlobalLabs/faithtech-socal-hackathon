@@ -42,10 +42,13 @@ const FIELDS = [
   { name: 'challenge',      label: 'Track',                 required: true,  max: 1, oneOf: Object.keys(CHALLENGES) },
   { name: 'one_liner',      label: 'Who it is for',             required: true,  max: 200 },
   { name: 'what_it_does',   label: 'What it does',              required: true,  max: 1200 },
-  { name: 'repo_url',       label: 'Public GitHub repo link',                 required: true,  max: 500, type: 'url' },
-  // One optional demo link: a video or a live app. Stored in live_demo_url;
-  // demo_video_url, real_vs_mocked and try_it are legacy columns, no longer collected.
-  { name: 'live_demo_url',  label: 'Demo link',                 required: false, max: 500, type: 'url' },
+  // A team gives a GitHub repo, a link we can open, or both (checked below), so a
+  // non-technical team is never forced onto GitHub. repo_url is NOT NULL in the
+  // shared table, so "no repo" is stored as ''. demo_video_url is the optional
+  // walkthrough video. real_vs_mocked and try_it are legacy columns, not collected.
+  { name: 'repo_url',       label: 'GitHub repo',               required: false, max: 500, type: 'url' },
+  { name: 'live_demo_url',  label: 'Link to see it',            required: false, max: 500, type: 'url' },
+  { name: 'demo_video_url', label: 'Demo video',                required: false, max: 500, type: 'url' },
   { name: 'members',        label: 'Team members',              required: true,  max: 1000 },
   { name: 'contact_name',   label: 'Contact name',              required: true,  max: 120 },
   { name: 'contact_email',  label: 'Contact email',             required: true,  max: 254, type: 'email' },
@@ -164,8 +167,12 @@ async function handler(req, res) {
   }
 
   // http:// is upgraded rather than refused. The repo must be a public GitHub link (owner/repo).
-  for (const k of ['repo_url', 'live_demo_url']) {
+  for (const k of ['repo_url', 'live_demo_url', 'demo_video_url']) {
     if (values[k]) values[k] = values[k].replace(/^http:\/\//i, 'https://');
+  }
+  if (!values.repo_url && !values.live_demo_url) {
+    const need = 'Add a GitHub repo or a link we can open. One is enough.';
+    errors.push({ field: 'repo_url', message: need }, { field: 'live_demo_url', message: need });
   }
   if (values.repo_url && !/^https:\/\/(www\.)?github\.com\/[^/\s]+\/[^/?#\s]+/i.test(values.repo_url)) {
     errors.push({ field: 'repo_url', message: 'Paste the full public GitHub link with the owner and the repo, like ' +
@@ -199,8 +206,9 @@ async function handler(req, res) {
     challenge: values.challenge,
     one_liner: values.one_liner,
     what_it_does: values.what_it_does,
-    repo_url: values.repo_url,
+    repo_url: values.repo_url || '',
     live_demo_url: values.live_demo_url,
+    demo_video_url: values.demo_video_url,
     members,
     contact_name: values.contact_name,
     contact_email: values.contact_email.toLowerCase(),
@@ -318,7 +326,8 @@ async function fetchTeam(req, res, editCode) {
   if (!x) return no(404, 'No submission matches that code', 'Check the code from your receipt, or find an organizer.');
   const versions = all.filter((r) => teamKey(r.team_name) === key).length;
   const team = { team_name: normName(x.team_name), challenge: x.challenge, one_liner: x.one_liner,
-    what_it_does: x.what_it_does, repo_url: x.repo_url, live_demo_url: x.live_demo_url || '',
+    what_it_does: x.what_it_does, repo_url: x.repo_url || '', live_demo_url: x.live_demo_url || '',
+    demo_video_url: x.demo_video_url || '',
     members: (Array.isArray(x.members) ? x.members : []).map((m) => (typeof m === 'string' ? m : (m && m.name) || '')).filter(Boolean).join('\n'),
     contact_name: x.contact_name, contact_email: x.contact_email, versions, saved_at: x.created_at };
   return lib.respond(req, res, 200, { ok: true, code: 'found', team, edit_code: editCode.trim() });

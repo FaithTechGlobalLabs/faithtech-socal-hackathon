@@ -31,7 +31,7 @@ made-up test data you can build against.
 2. **Any stack.** Use whatever you and your team know.
 3. **Test data only.** No real church, pastor or person data. The files in each track are made up.
 4. **Credit your sources.** Libraries, templates, prompts, other people's code.
-5. **Code freeze at 4:00 PM.** Push to a **public** GitHub repo and submit the link.
+5. **Code freeze at 4:00 PM.** Submit a public GitHub repo, a link a judge can open, or both. One is enough.
 
 Full boundaries: [ground rules](docs/ground-rules.md).
 
@@ -62,12 +62,15 @@ steward. Add an open-source license (MIT is fine) and a short README using
 | Morning | Welcome, FaithTech, redemptive technology, Baptize The World, the three tracks, lament and discern |
 | 12:30 PM | Build starts. Pray, prototype, pause |
 | 2:00 PM | Prayer pause, all together |
-| Mid-build | Steward: what your demo needs to cover |
-| **4:00 PM** | **Code freeze. Submit your repo** |
-| After 4:00 | Demos: a working prototype in 90 seconds, then what God did in your team |
-| Close | Group photo, honors, feedback form |
+| 2:05 PM | Steward: what your demo needs |
+| 3:45 PM | Dry run as a team |
+| **4:00 PM** | **Code freeze. Submit your project** |
+| 4:30 PM | Demos: 3 minutes each, then 2 minutes of questions |
+| 5:15 PM | Group photo, a chance to give, feedback form |
+| 5:30 PM | Honors: Most Redemptive, Most Collaborative, Most Creative |
+| 6:00 PM | Close |
 
-Times after 12:30 are the plan as of Oct 21. The hub page has the final schedule.
+Times are targets, from the run of show as of Oct 23. The hub page has the latest.
 
 ## Docs
 

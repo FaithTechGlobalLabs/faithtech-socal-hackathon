@@ -18,6 +18,12 @@ Every baptism is a story worth telling. Today a shareable testimony depends on s
 
 ---
 
+## How Baptize does it today
+
+- Testimonies are stories the Baptize team adds and features by hand (quote, name, church, photo or video).
+- **A newly baptized person has no way to share their own story yet.** The "Share your story" card on the next-steps page is a placeholder.
+- **There is no Baptize API to call.** Mock the save step and use the test data. Details: [How Baptize works today](../../docs/baptize-today.md).
+
 ## Test data
 
 - [`test-data/testimony-prompts.md`](test-data/testimony-prompts.md): a starter set of guided prompts to adapt, translate or replace.

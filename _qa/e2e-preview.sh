@@ -54,17 +54,17 @@ done; done
 r=$(code '/judges?view=shortlist' "${JH[@]}"); check "shortlist view 200" "$r" 200
 b=$(printf '{"action":"lock","admin":"%s","confirm":"1"}' "$OK"); r=$(pj "$b"); check "lock with organizer key 303" "$r" 303
 for j in Travis Dana; do
-  b=$(printf '{"action":"score","judge":"%s","team":"e2e alpha","impact":5,"product":4,"demo":3,"care":2,"note":"e2e"}' "$j"); r=$(pj "$b")
+  b=$(printf '{"action":"score","judge":"%s","team":"e2e alpha","impact":5,"product":4,"demo":3,"note":"e2e"}' "$j"); r=$(pj "$b")
   check "score $j alpha" "$r" 200
-  b=$(printf '{"action":"score","judge":"%s","team":"e2e beta","impact":3,"product":3,"demo":3,"care":3,"note":""}' "$j"); r=$(pj "$b")
+  b=$(printf '{"action":"score","judge":"%s","team":"e2e beta","impact":3,"product":3,"demo":3,"note":""}' "$j"); r=$(pj "$b")
   check "score $j beta" "$r" 200
 done
 R=$(c '/judges?view=results' "${JH[@]}")
-r=$(echo "$R" | python3 -c 'import sys,re;s=sys.stdin.read();print(bool(re.search(r"Most Redemptive[\s\S]*E2E Alpha[\s\S]*3\.85",s)))')
-check "results: Alpha is Most Redemptive at 3.85" "$r" True
+r=$(echo "$R" | python3 -c 'import sys,re;s=sys.stdin.read();print(bool(re.search(r"Most Redemptive[\s\S]*E2E Alpha[\s\S]*4\.10?",s)))')
+check "results: Alpha is Most Redemptive at 4.10" "$r" True
 b=$(printf '{"action":"reveal","admin":"%s","confirm":"1"}' "$OK"); r=$(pj "$b"); check "reveal with organizer key 303" "$r" 303
 SC=$(c '/judges?format=scores.csv' "${JH[@]}")
-r=$(echo "$SC" | grep -c '3\.85' | awk '{print ($1>0)?"y":"n"}'); check "scores CSV has 3.85" "$r" y
+r=$(echo "$SC" | grep -c '4\.10' | awk '{print ($1>0)?"y":"n"}'); check "scores CSV has 4.10" "$r" y
 b=$(printf '{"action":"csv","admin":"%s"}' "$OK"); r=$(pj "$b"); check "submissions CSV refused with organizer key" "$r" 403
 b=$(printf '{"action":"csv","admin":"%s"}' "$AK")
 CSV=$(c /judges -X POST "${J[@]}" "${JH[@]}" -d "$b")

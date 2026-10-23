@@ -39,6 +39,27 @@ const ok = (n, c, d) => console.log((c ? 'PASS ' : 'FAIL ') + n + (c ? '' : '  '
   const anon = await (await b.newContext({ extraHTTPHeaders: { 'x-vercel-protection-bypass': BYP } })).newPage();
   const r = await anon.goto(P + '/judges?view=shortlist');
   ok('judges without link is 401', r.status() === 401 && !(await anon.content()).includes('E2E Browser'));
+  // A non-technical team: no GitHub repo, just a link and a video
+  const p3 = await ctx.newPage();
+  await p3.goto(P + '/#submit', { waitUntil: 'networkidle' });
+  const g = async (n, v) => p3.fill('#sf-' + n, v);
+  await g('team_name', 'E2E No Repo'); await p3.check('input[name="challenge"][value="2"]');
+  await g('one_liner', 'A teen baptized at camp'); await g('what_it_does', 'Link-only browser test row, delete me.');
+  await g('live_demo_url', 'https://www.figma.com/proto/example'); await g('demo_video_url', 'https://youtu.be/example');
+  await g('members', 'Test Three'); await g('contact_name', 'Test Three'); await g('contact_email', 'norepo@example.com');
+  await p3.click('#sf-submit');
+  await p3.waitForSelector('#sf-done:not([hidden])', { timeout: 20000 }).catch(() => {});
+  ok('link-only team (no repo) can submit', /received/i.test(await p3.textContent('#sf-done').catch(() => '')));
+  const p4 = await ctx.newPage();
+  await p4.goto(P + '/#submit', { waitUntil: 'networkidle' });
+  await p4.fill('#sf-team_name', 'E2E Nothing'); await p4.check('input[name="challenge"][value="1"]');
+  for (const [n, v] of [['one_liner', 'x'], ['what_it_does', 'y'], ['members', 'Z'], ['contact_name', 'Z'], ['contact_email', 'z@example.com']]) await p4.fill('#sf-' + n, v);
+  await p4.click('#sf-submit'); await p4.waitForTimeout(2500);
+  ok('neither repo nor link is refused with a clear message', /One is enough/.test(await p4.textContent('#submit-form')));
+  const sc = await ctx.newPage();
+  await sc.goto(P + '/judges?view=score', { waitUntil: 'networkidle' });
+  const html = await sc.content();
+  ok('score view shows the 3 approved criteria', ['Redemptive potential', 'Usable by the end user', 'Technical viability'].every((t) => html.includes(t)) && !html.includes('Built the way we said'));
   ok('no page JS errors', errs.length === 0, errs.join(' | '));
   await b.close();
 })();

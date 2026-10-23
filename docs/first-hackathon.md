@@ -31,5 +31,5 @@ What to expect, in two minutes.
 
 ## Demo
 
-90 seconds of working prototype, then tell us how your team experienced the day and what God did.
+3 minutes, then 2 minutes of questions. Start with the person you built it for, show it working (on a phone if you can), then tell us how your team experienced the day and what God did. Have a backup video ready: [how to make one](demo-video.md).
 This is a demo, not a pitch. We already know the problem.
