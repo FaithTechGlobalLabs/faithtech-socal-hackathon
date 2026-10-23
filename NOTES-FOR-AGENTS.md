@@ -12,3 +12,8 @@
 - Slides link, feedback form, AI-access offer: TBD. Show "Posted here at 9:00 AM" placeholders, never fake URLs.
 - Brand: ink #16160C, paper #F5F0F0, gold #FFD700, Create blue #1D8FB9 (light backgrounds only). Create wordmark: site/assets/create-wordmark.svg. FaithTech and Baptize marks: site/assets/*.svg. Mono labels (IBM Plex Mono / ui-monospace), Inter/system sans. Tone: plain, warm, short sentences, no hype.
 - Hosting: new Vercel project under team team_fEw7z45AEKGZIm5sZQMymysa. Custom domain comes LAST (not now). Do not touch the claudesocal project or its production.
+
+## From the deck (PENDING: deck PDF not in the event folder as of 10/23)
+
+- Deck "SoCal Hackathon Deck.pdf" (Slack, 10/21 11:56) has not been downloaded to jesse-todos-2026-10-22/. Pathfinder link/QR, Wi-Fi line, judging criteria text, and schedule are NOT yet extracted from it.
+- Schedule mismatch (reported by Travis, NOT verified): Pathfinder's built-in agenda shows code freeze 5:30 PM and close 9 PM. Our event: code freeze 4:00 PM, close 6:00 PM. The public pathfinder.faithtech.com page (checked 10/23) shows only the title "FaithTech Create Pathfinder" and no agenda, so this could not be confirmed there. Resolve with Jesse before publishing any time.

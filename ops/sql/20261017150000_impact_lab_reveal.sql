@@ -1,0 +1,11 @@
+-- =============================================================================
+-- OC Claude Impact Lab (Sat 2026-10-17): keep judging private until results.
+--
+-- Until an organizer taps "Reveal results" (Demo order, Organizer tools, admin
+-- key), Results shows averages only and scores.json gives each judge only their
+-- own rows; per-judge scores and notes stay private. "Hide" sets it back to null.
+--
+-- Additive and safe to run twice. Apply BEFORE deploying the code that uses it:
+--   ./ops/supabase/apply.sh ops/supabase/20261017150000_impact_lab_reveal.sql
+-- =============================================================================
+alter table public.impact_lab_settings add column if not exists revealed_at timestamptz;

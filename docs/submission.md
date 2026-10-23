@@ -1,7 +1,7 @@
 # Submitting
 
 **One submission per team. Due 4:00 PM.** You can submit early and keep pushing. Edit your
-submission any time with your contact email.
+submission any time with the edit code from your receipt. Save that code. If you lose it, find an organizer.
 
 ## The form
 
