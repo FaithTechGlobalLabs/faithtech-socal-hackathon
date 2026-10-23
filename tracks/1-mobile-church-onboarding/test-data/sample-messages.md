@@ -13,5 +13,5 @@ Use these to test your flow. Each one is labelled with what a good system should
 | 6 | T003 | `muchos!!! gloria a Dios 🙌` | thanks them and asks for a number |
 | 7 | Unknown number | `baptisms 30` | asks them to register first; does not count it |
 | 8 | T008 | `STOP` | stops all messages and confirms |
-| 9 | T009 (Quechua speaker) | `Allillanchu, iglesiaymanta willakuyta munani` | answers in Quechua or offers Spanish, without guessing facts |
+| 9 | T009 (Quechua speaker) | a message in Quechua (have a teammate or a translator write one) | answers in Quechua or offers Spanish, and never guesses at a translation it is unsure of |
 | 10 | T006 | a photo of a handwritten tally sheet | asks for the number as text, or reads it and confirms |
