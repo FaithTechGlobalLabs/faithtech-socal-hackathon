@@ -9,6 +9,8 @@ Hosted by FaithTech LA and FaithTech OC.
 Baptize The World runs on five volunteers, spreadsheets and phone calls. Churches want to take
 part, and the friction stops them. Today we build the tools that remove it.
 
+**Event hub (schedule, submit form):** <https://faithtech-socal-hackathon.vercel.app>
+
 **First hackathon?** You do not need a team, an idea or coding experience. Read
 [your first hackathon](docs/first-hackathon.md). Two minutes.
 
@@ -33,6 +35,17 @@ made-up test data you can build against.
 
 Full boundaries: [ground rules](docs/ground-rules.md).
 
+## The Create framework
+
+The day follows FaithTech Create: **Lament, Discern, Build, Steward.** While you build, you loop
+through pray, prototype, pause. Read [the Create framework](docs/create-framework.md).
+
+## Pathfinder
+
+Pathfinder is FaithTech's lightweight team tool. Scan the QR to sign up, enter your laments and
+carry them through the day. The link is posted at 9:00 AM. Code submissions still go through the
+hub's Submit form unless announced otherwise. See [Pathfinder](docs/pathfinder.md).
+
 ## Why the code lives on GitHub
 
 Not for ownership. FaithTech and Baptize The World are not claiming your IP. A public repo means
@@ -55,6 +68,17 @@ steward. Add an open-source license (MIT is fine) and a short README using
 | Close | Group photo, honors, feedback form |
 
 Times after 12:30 are the plan as of Oct 21. The hub page has the final schedule.
+
+## Docs
+
+- [Your first hackathon](docs/first-hackathon.md)
+- [Getting started](docs/getting-started.md): laptop to first result in 15 minutes
+- [The Create framework](docs/create-framework.md)
+- [Pathfinder](docs/pathfinder.md)
+- [Ground rules](docs/ground-rules.md)
+- [Submitting](docs/submission.md): due 4:00 PM at <https://faithtech-socal-hackathon.vercel.app/#submit>
+- [Judging](docs/judging.md): as of Oct 23
+- [Team README template](templates/TEAM-README.md)
 
 ## Brand assets
 

@@ -1,4 +1,4 @@
-# Track 3: Post-baptism discipleship
+# Track 3 (stretch): The first 30 days
 **How might we walk a newly baptized person through their first 30 days of following Jesus, on the phone they already use, so they keep growing and get rooted in a local church?**
 
 **Short version:** How might we walk with someone through their first 30 days after baptism?

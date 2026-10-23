@@ -4,123 +4,255 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Create Hackathon · FaithTech SoCal × Baptize The World · Oct 24</title>
-<meta name="description" content="Everything for Saturday's hackathon in one link: schedule, tracks, Wi-Fi, sign-up, submission.">
-<style>
-  :root { --ink:#16160C; --paper:#F5F0F0; --gold:#FFD700; --muted:#A7A398; --line:#33332a; --card:#1e1e15; }
-  * { box-sizing:border-box; }
-  html { -webkit-text-size-adjust:100%; }
-  body { margin:0; background:var(--ink); color:var(--paper); font:17px/1.55 Inter, -apple-system, "Helvetica Neue", Arial, sans-serif; }
-  a { color:var(--paper); }
-  .wrap { max-width:760px; margin:0 auto; padding:28px 20px 80px; }
-  .mono { font-family:"IBM Plex Mono", ui-monospace, Menlo, monospace; letter-spacing:.14em; text-transform:uppercase; font-size:13px; color:var(--muted); }
-  header .logo { width:100%; max-width:520px; display:block; margin:28px 0 8px; }
-  h1 { font-size:30px; line-height:1.15; margin:18px 0 6px; font-weight:700; }
-  h2 { font-size:22px; margin:44px 0 12px; font-weight:700; }
-  .lede { color:#d9d4cc; margin:0; }
-  .partners { display:flex; align-items:center; gap:14px; margin-top:20px; }
-  .partners img { height:30px; }
-  .partners span { color:var(--muted); }
-  .links { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:28px; }
-  .links a { display:block; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; text-decoration:none; min-height:84px; }
-  .links a b { display:block; font-size:16px; }
-  .links a small { color:var(--muted); font-size:13px; line-height:1.35; display:block; margin-top:4px; }
-  .links a.primary { grid-column:1 / -1; background:var(--gold); color:var(--ink); border-color:var(--gold); }
-  .links a.primary small { color:#3b3a2e; }
-  .tbd { outline:2px dashed #e0a800; outline-offset:2px; }
-  .tbd-note { display:inline-block; font-size:11px; background:#e0a800; color:var(--ink); border-radius:4px; padding:0 5px; margin-left:4px; font-family:ui-monospace, Menlo, monospace; letter-spacing:0; text-transform:none; vertical-align:middle; }
-  .wifi { margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; }
-  .wifi code { font-size:16px; color:var(--gold); word-break:break-all; }
-  table { width:100%; border-collapse:collapse; }
-  td { padding:10px 0; border-bottom:1px solid var(--line); vertical-align:top; }
-  td:first-child { width:104px; font-family:ui-monospace, Menlo, monospace; color:var(--gold); font-size:15px; white-space:nowrap; }
-  .track { border:1px solid var(--line); border-radius:12px; padding:16px; margin:12px 0; background:var(--card); }
-  .track .n { font-family:ui-monospace, Menlo, monospace; color:var(--gold); }
-  .track h3 { margin:4px 0 6px; font-size:19px; }
-  .track p { margin:6px 0; color:#d9d4cc; }
-  ol, ul { padding-left:22px; }
-  li { margin:4px 0; }
-  .qr { text-align:center; margin-top:48px; color:var(--muted); font-size:14px; }
-  .qr img { width:180px; height:180px; background:#fff; padding:10px; border-radius:10px; }
-  footer { margin-top:48px; color:var(--muted); font-size:14px; border-top:1px solid var(--line); padding-top:16px; }
-</style>
+<meta name="description" content="Everything for Saturday's Create hackathon in one link: schedule, tracks, Wi-Fi, Pathfinder, submission and judging.">
+<meta name="theme-color" content="#16160C">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="wrap">
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
 
-<header>
-  <div class="mono">FaithTech SoCal · Hackathon · Sat Oct 24, 2026</div>
-  <img class="logo" src="assets/create-wordmark.svg" alt="Create">
-  <h1>Build technology in the way of Jesus.</h1>
-  <p class="lede">One day, three real problems from Baptize The World. Everything you need today is on this page. Bookmark it.</p>
-  <div class="partners">
-    <img src="assets/faithtech-mark-white.svg" alt="FaithTech"><span>×</span><img src="assets/baptize-wordmark-white.svg" alt="Baptize The World">
+<header class="hero">
+  <div class="wrap">
+    <p class="mono">FaithTech SoCal · Hackathon · Sat Oct 24, 2026</p>
+    <img class="logo" src="assets/create-wordmark.svg" alt="Create" width="440" height="181">
+    <h1>Build technology in the way of Jesus.</h1>
+    <p class="lede">One day, three real problems from Baptize The World. Everything you need today is on this page. Bookmark it.</p>
+    <ul class="facts" aria-label="Event facts">
+      <li>9:00 AM to 6:00 PM</li>
+      <li>Intersections LA</li>
+      <li>Code freeze 4:00 PM</li>
+    </ul>
+    <div class="partners">
+      <img src="assets/faithtech-mark-white.svg" alt="FaithTech"><span class="x" aria-hidden="true">×</span><img src="assets/baptize-wordmark-white.svg" alt="Baptize The World">
+    </div>
   </div>
 </header>
 
-<nav class="links" aria-label="Quick links">
-  <a class="primary tbd" href="#submit"><b>Submit your project · due 4:00 PM</b><small>Public GitHub repo link + a short write-up. One per team.</small><span class="tbd-note">TBD: submission form</span></a>
-  <a class="tbd" href="#"><b>Pathfinder sign-up</b><small>Join your team and enter your laments.</small><span class="tbd-note">TBD: Kevin's link</span></a>
-  <a href="https://github.com/REPLACE-ORG/baptize-the-world-hackathon" class="tbd"><b>Challenge repo</b><small>The three tracks, ground rules, test data.</small><span class="tbd-note">TBD: repo URL</span></a>
-  <a class="tbd" href="#"><b>Today's slides</b><small>The kickoff deck.</small><span class="tbd-note">TBD: Jesse</span></a>
-  <a class="tbd" href="#"><b>Feedback form</b><small>Two minutes, at the close.</small><span class="tbd-note">TBD: Dana / Luma survey</span></a>
-</nav>
+<section aria-labelledby="h-links">
+  <div class="wrap">
+    <h2 id="h-links">Quick links</h2>
+    <ul class="tiles">
+      <li class="primary-li" style="grid-column:1/-1"><a class="tile primary" href="#submit"><b>Submit your project</b><small>Due 4:00 PM. One per team. Public GitHub repo link and a short write-up.</small></a></li>
+      <li><div class="tile pending"><b>Pathfinder</b><small>Sign up your team and enter your laments.</small><span class="soon">Posted here at 9:00 AM</span></div></li>
+      <li><div class="tile pending"><b>Slides</b><small>Today's kickoff deck.</small><span class="soon">Posted here at 9:00 AM</span></div></li>
+      <li><a class="tile" href="#tracks"><b>Tracks</b><small>The three problems, who each is for, and what done looks like.</small></a></li>
+      <li><div class="tile pending"><b>Feedback</b><small>Two minutes, near the close.</small><span class="soon">Posted here at 9:00 AM</span></div></li>
+    </ul>
+  </div>
+</section>
 
-<div class="wifi tbd">
-  <div class="mono">Wi-Fi</div>
-  Network: <code>TBD</code> · Password: <code>TBD</code> <span class="tbd-note">TBD: confirm with Floyd</span>
-</div>
+<section aria-labelledby="h-wifi">
+  <div class="wrap">
+    <h2 id="h-wifi">Wi-Fi</h2>
+    <div class="card wifi">
+      <dl>
+        <div><dt class="mono">Network</dt><dd><code class="val" style="display:block">Intersections L.A.</code></dd></div>
+        <div><dt class="mono">Password</dt><dd class="pw"><code class="val" id="wifi-pw">what'syourNEXT@intersections?</code><button class="copy" type="button" id="copy-pw" aria-describedby="copy-status">Copy</button></dd></div>
+      </dl>
+      <p class="small" id="copy-status" role="status" aria-live="polite">Tap Copy, then paste it into your Wi-Fi settings.</p>
+    </div>
+  </div>
+</section>
 
-<h2>The day</h2>
-<table>
-  <tr><td>9:00 AM</td><td>Doors, check-in, breakfast and coffee</td></tr>
-  <tr><td>9:15 AM</td><td>Worship</td></tr>
-  <tr><td>Morning</td><td>Welcome · FaithTech · building in the way of Jesus · Baptize The World · the three tracks · lament and discern · form your team</td></tr>
-  <tr><td>12:30 PM</td><td>Build starts. Pray, prototype, pause</td></tr>
-  <tr><td>2:00 PM</td><td>Prayer pause, all together</td></tr>
-  <tr><td>Mid-build</td><td>Steward: what your demo needs to cover</td></tr>
-  <tr><td>4:00 PM</td><td><b>Code freeze. Submit your repo</b></td></tr>
-  <tr><td>After 4</td><td>Demos, group photo, honors, feedback</td></tr>
-  <tr><td>6:00 PM</td><td>Close</td></tr>
-</table>
+<section id="schedule" aria-labelledby="h-day">
+  <div class="wrap">
+    <h2 id="h-day">The day</h2>
+    <ol class="sched">
+      <li><b>9:00 AM</b><span>Doors and check-in</span></li>
+      <li><b>9:15 AM</b><span>Worship</span></li>
+      <li><b>Morning</b><span>Welcome and logistics · plan for the day · FaithTech intro · building in the way of Jesus · Baptize The World and Pastor Calin · the three tracks<span class="sub">Then form teams of 3 to 5 and join Pathfinder.</span></span></li>
+      <li><b>Lament</b><span>Nehemiah 1<span class="sub">Name what is broken.</span></span></li>
+      <li><b>Discern</b><span>Sticky notes. Each team names its direction.</span></li>
+      <li class="key"><b>12:30 PM</b><span><strong>Build starts</strong><span class="sub">Pray, prototype, pause.</span></span></li>
+      <li><b>2:00 PM</b><span>Prayer pause, all together</span></li>
+      <li><b>Mid-build</b><span>Steward introduced (timing decided on the day)</span></li>
+      <li class="key"><b>4:00 PM</b><span><strong>Code freeze. Submit your repo.</strong></span></li>
+      <li><b>After 4</b><span>Demos (90 seconds each) · group photo · a chance to give · feedback form · honors · next events</span></li>
+      <li><b>6:00 PM</b><span>Close</span></li>
+    </ol>
+  </div>
+</section>
 
-<h2>Pick one track</h2>
-<p class="lede">Teams of 3 to 5. Each team has a project lead and a primary developer, and a role for everyone.</p>
-<div class="track"><span class="n">01 · top priority</span><h3>Mobile-first church onboarding</h3>
-  <p>How might we make registering a church and reporting baptisms as easy as sending a text?</p>
-  <p><b>Done at 6 PM:</b> a judge texts a number from their own phone, registers a church in their language, and sees it on a live dashboard. Then texts a baptism count and the total moves.</p></div>
-<div class="track"><span class="n">02</span><h3>Testimony sharing</h3>
-  <p>How might we make it easy for someone who was just baptized to share their story?</p>
-  <p><b>Done at 6 PM:</b> someone opens a link, answers a few guided prompts, and leaves with a testimony they can post, without anyone at a church producing it.</p></div>
-<div class="track"><span class="n">03 · stretch</span><h3>The first 30 days</h3>
-  <p>How might we walk with someone through their first 30 days after baptism?</p>
-  <p><b>Done at 6 PM:</b> a judge enrolls by text or QR code, gets Day 1, replies, gets the next step. Their church can see who is active and who has gone quiet.</p></div>
+<section id="create" aria-labelledby="h-create">
+  <div class="wrap">
+    <h2 id="h-create">The Create framework</h2>
+    <p class="lede">FaithTech's way of working through a day like this. Four movements, in order.</p>
+    <ol class="steps">
+      <li data-n="1"><b>Lament</b><span>Start with what is broken, honestly, before you try to fix it.</span></li>
+      <li data-n="2"><b>Discern</b><span>Listen and decide together. Each team names its direction.</span></li>
+      <li data-n="3"><b>Build</b><span>Make something real. Work in short loops.</span></li>
+      <li data-n="4"><b>Steward</b><span>Care for what you made, and the people it is for.</span></li>
+    </ol>
+    <div class="card gold">
+      <h3>The build loop</h3>
+      <div class="loop" aria-label="Pray, then prototype, then pause, and repeat">
+        <span class="pill">Pray</span><span class="ar" aria-hidden="true">→</span><span class="pill">Prototype</span><span class="ar" aria-hidden="true">→</span><span class="pill">Pause</span><span class="ar" aria-hidden="true">↻</span>
+      </div>
+      <p>Pray before you start a push. Prototype something small. Pause to check it, and each other. We stop together for prayer at 2:00 PM.</p>
+    </div>
+    <blockquote>
+      “By faith we understand that the universe was formed at God's command, so that what is seen was not made out of what was visible.”
+      <cite>Hebrews 11:3 (NIV)</cite>
+    </blockquote>
+  </div>
+</section>
 
-<h2>Build rules</h2>
-<ol>
-  <li><b>Start fresh today.</b> Any stack.</li>
-  <li><b>Test data only.</b> No real church, pastor or personal data. Use the files in the challenge repo.</li>
-  <li><b>Consent first.</b> Opt-in before any message; nothing public without the person's OK; under 18 needs a parent's OK.</li>
-  <li><b>Credit your sources.</b></li>
-  <li><b>Code freeze at 4:00 PM.</b> Push to a public GitHub repo and submit the link.</li>
-</ol>
+<section id="pathfinder" aria-labelledby="h-path">
+  <div class="wrap">
+    <h2 id="h-path">Pathfinder</h2>
+    <div class="card">
+      <p>Pathfinder is a lightweight tool from FaithTech. Your team signs up by QR code, enters its laments, and carries them through the day. It also tracks builders, projects started and projects deployed.</p>
+      <p><span class="soon">QR code and link: Posted here at 9:00 AM</span></p>
+      <p class="small">Submitting your repo happens on this page, in the Submit section below.</p>
+    </div>
+  </div>
+</section>
 
-<h2 id="submit">Submit and demo</h2>
-<ul>
-  <li><b>Submit by 4:00 PM:</b> team name, track, public repo link, one-paragraph write-up. <span class="tbd-note">TBD: form</span></li>
-  <li><b>Optional:</b> a short video walkthrough. Ask Claude to click through your prototype and record it.</li>
-  <li><b>Demo:</b> 90 seconds of working prototype, then tell us how your team experienced the day and what God did. A demo, not a pitch.</li>
-</ul>
+<section id="tracks" aria-labelledby="h-tracks">
+  <div class="wrap">
+    <h2 id="h-tracks">Pick one track</h2>
+    <p class="lede">Teams of 3 to 5. Each team has a project lead and a primary developer, and everyone has a role.</p>
 
-<h2>Honors</h2>
-<p class="lede">Announced at the close, in this order: <b>Most Collaborative</b>, <b>Most Creative</b>, <b>Most Redemptive</b>. Winners come up for a photo in front of the honors slide. <span class="tbd-note">TBD: final judging text from Jesse</span></p>
+    <article class="track" aria-labelledby="t1">
+      <span class="n">Track 1 · top priority</span>
+      <h3 id="t1">Mobile-first church onboarding</h3>
+      <p class="hmw">How might we make registering a church and reporting baptisms as easy as sending a text?</p>
+      <dl>
+        <dt>Who it's for</dt><dd>AI and agent builders, backend, messaging and telephony APIs, internationalization.</dd>
+        <dt>Done at 6 PM</dt><dd>A judge texts a number from their own phone. The agent answers in their language, collects church name, pastor name, email and location, confirms back, and the church appears on a live dashboard within seconds. The same number then texts a baptism count and the dashboard total moves.</dd>
+        <dt>Must also</dt><dd>Reject bad submissions (duplicates, non-numbers, impossible counts) and get the pastor's opt-in before sending anything.</dd>
+      </dl>
+    </article>
 
-<h2>Where</h2>
-<p class="lede">The Robertson Triangle (Intersections LA), 3390 Robertson Pl, Los Angeles, CA 90034. <a href="https://maps.google.com/?q=3390+Robertson+Pl,+Los+Angeles,+CA+90034">Open in Maps</a>. On-site parking plus free street parking. <span class="tbd-note">TBD: Jenny's parking map</span></p>
-<p class="lede">Bring a laptop, its charger, a GitHub account and an AI account you can build with.</p>
+    <article class="track" aria-labelledby="t2">
+      <span class="n">Track 2</span>
+      <h3 id="t2">Testimony sharing</h3>
+      <p class="hmw">How might we make it easy for someone who was just baptized to share their story?</p>
+      <dl>
+        <dt>Who it's for</dt><dd>Design, frontend, video and media, storytellers.</dd>
+        <dt>Done at 6 PM</dt><dd>Someone who was baptized opens a link, answers a few guided prompts (typed, spoken or a short video), and leaves with a testimony they can post right away, without anyone at a church touching it. If they say yes, the Baptize team can see the story and feature it.</dd>
+        <dt>Must also</dt><dd>Nothing goes public without the person's OK, and anyone under 18 needs a parent or guardian's OK.</dd>
+      </dl>
+    </article>
 
-<div class="qr tbd"><div>Scan to open this page</div><span class="tbd-note">TBD: QR after the URL is set</span></div>
+    <article class="track" aria-labelledby="t3">
+      <span class="n">Track 3 · stretch</span>
+      <h3 id="t3">The first 30 days</h3>
+      <p class="hmw">How might we walk with someone through their first 30 days after baptism?</p>
+      <dl>
+        <dt>Who it's for</dt><dd>Product and UX, messaging, content design, pastors and disciple-makers. The hardest of the three to get right in a day.</dd>
+        <dt>Done at 6 PM</dt><dd>A judge plays someone baptized that morning. They enroll by text or QR code in their language, get Day 1 on their phone, reply, and get the next step (fast-forward the days for the demo). Their church can see they're active, and who has gone quiet.</dd>
+        <dt>Must also</dt><dd>Every message needs opt-in and an easy way to stop. This is a build track, not a curriculum track.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
 
-<footer>Hosted by FaithTech LA and FaithTech OC with Baptize The World. Questions about the problem: the Baptize team is in the room all day. Setup, GitHub or submitting: find a mentor.</footer>
-</div>
+<section id="rules" aria-labelledby="h-rules">
+  <div class="wrap">
+    <h2 id="h-rules">Build rules</h2>
+    <ol class="rules">
+      <li><b>Start fresh today.</b> Any stack.</li>
+      <li><b>Test data only.</b> No real church, pastor or personal data.</li>
+      <li><b>Credit your sources.</b></li>
+      <li><b>Connect to GitHub.</b> Use a public repo. This is for stewardship, not ownership of your IP.</li>
+      <li><b>Code freeze at 4:00 PM.</b></li>
+    </ol>
+  </div>
+</section>
+
+<section id="submit" aria-labelledby="h-submit">
+  <div class="wrap">
+    <h2 id="h-submit">Submit &amp; demo</h2>
+    <ul class="sub-facts">
+      <li><b>Due 4:00 PM.</b> One submission per team.</li>
+      <li><b>Public GitHub repo.</b> Paste the link below with a short write-up.</li>
+      <li><b>Edit any time.</b> Submit early, then change it as you go. Judges see your latest.</li>
+      <li><b>Optional video.</b> Ask Claude to click through your prototype and record a walkthrough.</li>
+    </ul>
+    <div id="submit-form"></div>
+    <script src="/submit.js" defer></script>
+    <noscript><p class="card">The submission form needs JavaScript. Find an organizer and we will take your repo link another way.</p></noscript>
+    <p><b>Demo:</b> 90 seconds of working prototype, then tell us what God did. A demo, not a pitch.</p>
+  </div>
+</section>
+
+<section id="judging" aria-labelledby="h-judging">
+  <div class="wrap">
+    <h2 id="h-judging">Judging &amp; honors</h2>
+    <p class="lede">How judging works. Honors are announced at the close, in this order.</p>
+    <ol class="honors">
+      <li><b>Most Collaborative</b><span>The mentors' pick.</span></li>
+      <li><b>Most Creative</b><span>The judges' pick.</span></li>
+      <li><b>Most Redemptive</b><span>The highest weighted judge score, from the four areas below.</span></li>
+    </ol>
+    <ul class="weights" aria-label="Most Redemptive scoring weights">
+      <li><b>35%</b><span><strong>Works live, end to end.</strong> Does the prototype actually run?</span></li>
+      <li><b>30%</b><span><strong>Baptize would adopt it.</strong> Is it something the movement would use?</span></li>
+      <li><b>20%</b><span><strong>Usable by a non-technical pastor or new believer.</strong></span></li>
+      <li><b>15%</b><span><strong>Built the way we said.</strong> Consent, honest data, team care.</span></li>
+    </ul>
+    <p class="small">Baptize The World may also name an optional Baptize's Pick, chosen by Pastor Calin. Claude does a quick read of each repo before demos.</p>
+  </div>
+</section>
+
+<section id="ai" aria-labelledby="h-ai">
+  <div class="wrap">
+    <h2 id="h-ai">AI access</h2>
+    <div class="card"><p>Bring an AI account you can build with. If there is something extra for builders today, it will be here.</p><p><span class="soon">Details posted here Saturday morning</span></p></div>
+  </div>
+</section>
+
+<section id="where" aria-labelledby="h-where">
+  <div class="wrap">
+    <h2 id="h-where">Where &amp; parking</h2>
+    <div class="card">
+      <p><b>Intersections LA</b> (The Robertson Triangle)<br>3390 Robertson Pl, Los Angeles, CA 90034</p>
+      <p><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=3390+Robertson+Pl+Los+Angeles+CA+90034" target="_blank" rel="noopener">Open in Maps</a></p>
+      <p>There are 75 parking spaces on site, plus free street parking. The parking map is on the event page on Luma.</p>
+      <p><a class="btn ghost" href="https://luma.com/si6vhw1a" target="_blank" rel="noopener">Open the Luma event page</a></p>
+      <p class="small">Bring a laptop, its charger, a GitHub account and an AI account you can build with.</p>
+    </div>
+  </div>
+</section>
+
+<section id="help" aria-labelledby="h-help">
+  <div class="wrap">
+    <h2 id="h-help">Help</h2>
+    <ul class="plain">
+      <li><b>About the problem:</b> ask the Baptize team. They are in the room all day.</li>
+      <li><b>Setup, GitHub or submitting:</b> find a mentor.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="qr" aria-labelledby="h-qr">
+  <div class="wrap">
+    <h2 id="h-qr" style="font-size:20px">Scan to open this page</h2>
+    <img src="assets/qr.svg" width="200" height="200" alt="QR code that opens this hub page">
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="partners"><img src="assets/faithtech-mark-white.svg" alt="FaithTech"><span class="x" aria-hidden="true">×</span><img src="assets/baptize-wordmark-white.svg" alt="Baptize The World"></div>
+    <p>FaithTech SoCal Create Hackathon with Baptize The World · Sat Oct 24, 2026 · <a class="inl" href="https://luma.com/si6vhw1a" target="_blank" rel="noopener">Event page</a></p>
+  </div>
+</footer>
+<script>
+(function(){
+  var b=document.getElementById('copy-pw'),pw=document.getElementById('wifi-pw'),st=document.getElementById('copy-status');
+  if(!b)return;
+  function done(ok){st.textContent=ok?'Copied. Paste it into your Wi-Fi settings.':'Press and hold the password to copy it.';b.textContent=ok?'Copied':'Copy';setTimeout(function(){b.textContent='Copy'},2000)}
+  b.addEventListener('click',function(){
+    var t=pw.textContent;
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},fb)}else fb();
+    function fb(){try{var r=document.createRange();r.selectNodeContents(pw);var s=getSelection();s.removeAllRanges();s.addRange(r);done(document.execCommand('copy'))}catch(e){done(false)}}
+  });
+})();
+</script>
 </body>
 </html>
