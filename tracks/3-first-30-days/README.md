@@ -1,38 +1,57 @@
 # Track 3: Post-baptism discipleship
-**How might we help local churches walk a newly baptized person through their first 30 days of following Jesus, so they keep growing and stay rooted in that church?**
 
-**Short version:** How might we walk with someone through their first 30 days after baptism?
+> How might we help local churches walk a newly baptized person through their first 30 days of
+> following Jesus, so they keep growing and stay rooted in that church?
 
-**Who it's for:** product and UX, messaging, content design, pastors and disciple-makers. It is the hardest of the three to get right in a day, so keep the scope small.
+**Who it's for.** Someone who was just baptized, and the local church that baptized them.
 
-Baptism happens on one Sunday. What happens in the weeks after depends on whether anyone follows up. Today the platform's answer to "what now?" is a static Next Steps page with three links: find a church, read the Gospel of John, share your story. Nothing on the platform walks with the person after that day, and a church has no simple way to see who needs a call.
+**Today.** Baptism happens on one Sunday. What happens in the weeks after depends on whether
+anyone follows up. Baptize's answer to "what now?" is a Next Steps page with three static cards
+(find a church, read the Gospel of John, share your story), in English only. Follow-up is email
+only. There is no 30-day journey, nothing by text or WhatsApp, and a church has no simple way to
+see who needs a call.
 
-**Angles a team can take**
-- How might we deliver one small next step a day, in their language, by text or WhatsApp?
-- How might we let a local church see who's growing and who's gone quiet, so a real person follows up?
-- How might we make it work for a church with no staff, no app and no budget?
+**If you crack it.** New believers keep growing and stay rooted in the church that baptized them.
 
-**A strong demo looks like:** a judge plays someone baptized that morning. They enroll by text or QR code in their language, get Day 1 on their phone, reply, and get the next step (fast-forward the days for the demo). Their church can see they're active, and can see who has gone quiet.
+## The what, the how and the when
 
-**Scope note:** this is a build track, not a curriculum track. Use a simple existing plan (the Next Steps page already points people to the Gospel of John) and spend the day on delivery and follow-up. Every message needs opt-in and an easy way to stop.
+We care about all three.
 
----
+- **The what is given.** Use **Anchored**, an 8-week discipleship journey:
+  [its structure](test-data/anchored.md). Improvise from it. A lighter 30-day plan built on the
+  Gospel of John is there too.
+- **The how is yours.** Who walks with the person: a group leader, a mentor, the church, the
+  person on their own, or a mix. Your team decides.
+- **The when is yours.** Anchored has daily and weekly rhythms. Decide when each step reaches the
+  person, and what happens when they go quiet.
 
-## How Baptize does it today
+**Reach people where they are.** We would love your tool to reach people on WhatsApp, where many
+of Baptize's churches already are. It does not have to be built around WhatsApp. A texting agent
+like [Poke](https://poke.com) that people can also reach on WhatsApp is the kind of thing we mean.
+That is a hope, not a rule. Tools that help: [text-agent kit](../../docs/text-agent-kit.md).
 
-- People sign up at "Get baptized" (name, email, phone, location, 16 or older), and Baptize tracks their status through to baptized, plus their church.
-- After that there are three static next-steps cards (connect with a church, read John, share your story), in English only. Follow-up is email only.
-- **There is no 30-day journey and nothing by text or WhatsApp.** That's the gap.
-- **There is no Baptize API to call.** Mock the save step and use the test data. Details: [How Baptize works today](../../docs/baptize-today.md).
+## Why it's hard
 
-## Test data
+- One small next step at a time, in the person's language, by text or WhatsApp.
+- It has to work for a church with no staff, no app and no budget.
+- "Gone quiet" needs a definition, and a real person has to follow up.
 
-- [`test-data/30-day-outline.md`](test-data/30-day-outline.md): a simple plan built on the Gospel of John, which the Next Steps page already points to. Days 22 to 30 are left for your team or the local church.
-- [`test-data/new-believers.csv`](test-data/new-believers.csv): made-up people baptized at made-up churches, with language and how they prefer to be reached.
+## Guardrail
 
-## Good questions for the Baptize team
+Every message needs an opt-in and an easy way to stop. No invented Scripture: cite book, chapter
+and verse. AI makes mistakes, including in translation. Build a way to catch them.
 
-- Who at a local church would see the follow-up list, and how often?
-- What does "gone quiet" mean: 3 days, a week?
+## What's in this folder
 
-Rules for every track: [ground rules](../../docs/ground-rules.md).
+| Path | What it is |
+|---|---|
+| [`test-data/anchored.md`](test-data/anchored.md) | Anchored's structure: the arc, the 8 rhythms, Weeks 1 to 3, and its daily and weekly cues |
+| [`test-data/30-day-outline.md`](test-data/30-day-outline.md) | A lighter 30-day plan built on the Gospel of John |
+| [`test-data/new-believers.csv`](test-data/new-believers.csv) | Made-up people baptized at made-up churches, with language and how they prefer to be reached |
+
+There is no Baptize API to call. Mock the save step. See [how Baptize works today](../../docs/baptize-today.md).
+
+**Ask the Baptize team:** Who at a local church would see the follow-up list, and how often? What
+does "gone quiet" mean: 3 days, a week?
+
+Test data only. See the [ground rules](../../docs/ground-rules.md).

@@ -1,8 +1,10 @@
-# A simple first-30-days plan (starter)
+# A simple first-30-days plan (lighter fallback)
+
+**Anchored is the main content for this track: see [anchored.md](anchored.md).** This plan is a
+lighter option if your team wants one.
 
 baptize.org's Next Steps page already points new believers to three things: find a church, read the
-Gospel of John, share your story. This outline builds on that. **This is a build track, not a
-curriculum track:** spend the day on delivery and follow-up, not on writing the plan.
+Gospel of John, share your story. This outline builds on that.
 
 | Days | Reading | One small next step (example) |
 |---|---|---|

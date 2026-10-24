@@ -1,13 +1,23 @@
-# Track 1 (primary focus): Mobile-first church onboarding
-**How might we help a pastor anywhere register their church, get resources and report baptisms from the phone they already use, on any connection and in their own language, so every baptism on Pentecost 2027 gets counted?**
+# Track 1: Mobile-first church onboarding (primary focus)
 
-**Short version:** How might we make registering a church and reporting baptisms as easy as sending a text?
+> How might we help a pastor anywhere register their church, get resources and report baptisms
+> from the phone they already use, on any connection and in their own language, so every baptism
+> on Pentecost 2027 gets counted?
 
-**Who it's for:** AI and agent builders, backend, messaging and telephony APIs, internationalization
+**Who it's for.** A pastor anywhere. In Peru, Brazil and across Asia, pastors run their ministries
+on WhatsApp, not web forms.
 
-Pastors in Peru, Brazil and across Asia run their ministries on WhatsApp, not web forms. Registering a church still means a web form, often in a second language, so many never finish. Texting already works: on Pentecost 2026 churches texted in their baptism counts, and when churches were asked to reply "yes" by text, response beat the email-and-form flow by a wide margin. Registration is the step still stuck on a form, and 2027 brings networks of hundreds of pastors in Peru alone, more than the Baptize team can message by hand. This is Baptize The World's highest priority for 2027.
+**Today.** Registering a church means a web form, often in a second language, so many never
+finish. Counts come in through a web dashboard or as a reply to a text. Texted counts are read
+automatically, but a person on the Baptize team confirms each one. WhatsApp is saved as a
+preference only. Texting already works: on Pentecost 2026, when churches were asked to reply
+"yes" by text, response beat the email-and-form flow by a wide margin.
 
-**What good looks like:** four marks of a strong Track 1 solution.
+**If you crack it.** Networks of hundreds of pastors, in Peru alone, register without the Baptize
+team messaging each one by hand, and every baptism on Pentecost 2027 gets counted. This is Baptize
+The World's highest priority for 2027.
+
+**What good looks like.**
 
 | Mark | What it means |
 |---|---|
@@ -16,33 +26,33 @@ Pastors in Peru, Brazil and across Asia run their ministries on WhatsApp, not we
 | **Done in one sitting** | A busy pastor finishes in one conversation. |
 | **Ready by Pentecost** | Something real churches could try before May 16, 2027. |
 
-**Angles a team can take**
-- How might we onboard a church in one conversation, in the pastor's language, on a weak 2G/3G connection?
-- How might we keep the numbers trustworthy when anyone can text in a count?
-- How might we reach pastors who don't use WhatsApp?
+**Reach people where they are.** We would love your tool to reach people on WhatsApp, where many
+of Baptize's churches already are. It does not have to be built around WhatsApp. A texting agent
+like [Poke](https://poke.com) that people can also reach on WhatsApp is the kind of thing we mean.
+That is a hope, not a rule. Tools that help: [text-agent kit](../../docs/text-agent-kit.md).
 
-**A strong demo looks like:** a judge texts a number from their own phone. The agent answers in their language, collects church name, pastor name, email and location, confirms back, and the church appears on a live dashboard within seconds. The same number then texts a baptism count and the dashboard total moves.
+## Why it's hard
 
-**Must also:** reject bad submissions (duplicates, non-numbers, impossible counts) and get the pastor's opt-in before sending anything. The movement reports on these numbers, so a flow that accepts anything is worse than the form it replaces.
+- One conversation, in the pastor's language, on a weak 2G or 3G connection.
+- Anyone can text in a count. The movement reports on these numbers, so a flow that accepts
+  anything is worse than the form it replaces.
+- Some pastors don't use WhatsApp.
 
----
+## Guardrail
 
-## How Baptize does it today
+Reject duplicates, non-numbers and impossible counts (a count is a whole number from 0 to 10,000),
+and get the pastor's opt-in before sending anything.
 
-- **Registering a church is a web form only**: name, email, mobile, church name, country, language, consent, then a 6-digit code. You can't register by text or WhatsApp yet.
-- **Counts come in two ways**: the web dashboard, or a reply to a text. Texted counts are read automatically, but a person on the Baptize team confirms each one before it counts.
-- WhatsApp is saved as a preference only; nothing sends WhatsApp messages yet. Languages today: English, Spanish, Portuguese, French.
-- **There is no Baptize API to call.** Mock the save step and use the test data. Details: [How Baptize works today](../../docs/baptize-today.md).
+## What's in this folder
 
-## Test data
+| Path | What it is |
+|---|---|
+| [`test-data/churches.csv`](test-data/churches.csv) | 12 made-up churches in Peru, Brazil, the Philippines and the US, with language and connection quality |
+| [`test-data/sample-messages.md`](test-data/sample-messages.md) | Realistic inbound texts, including messy and invalid ones |
 
-- [`test-data/churches.csv`](test-data/churches.csv): 12 made-up churches in Peru, Brazil, the Philippines and the US, with language and connection quality.
-- [`test-data/sample-messages.md`](test-data/sample-messages.md): realistic inbound texts, including messy and invalid ones your flow must handle.
+There is no Baptize API to call. Mock the save step. See [how Baptize works today](../../docs/baptize-today.md).
 
-## Good questions for the Baptize team
+**Ask the Baptize team:** What does a pastor need to give, at minimum, for a church to count? What
+makes a count suspicious? Which languages matter most for 2027?
 
-- What does a pastor need to give us, at minimum, for a church to count?
-- What makes a baptism count suspicious?
-- Which languages matter most for 2027?
-
-Rules for every track: [ground rules](../../docs/ground-rules.md).
+Test data only. See the [ground rules](../../docs/ground-rules.md).
