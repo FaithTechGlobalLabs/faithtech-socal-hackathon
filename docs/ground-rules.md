@@ -38,4 +38,4 @@ AI makes mistakes, including in translation. Build a way to catch them. How is u
 
 ## 7. Start fresh, credit sources
 
-Nothing built before 12:30 PM counts. Credit libraries, templates and other people's code.
+The code starts today. Name the tools, templates and other people's code you used.

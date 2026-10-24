@@ -1,9 +1,0 @@
-{
-  "name": "faithtech-socal-hackathon",
-  "private": true,
-  "description": "FaithTech SoCal x Baptize The World Create Hackathon hub: submissions and judging.",
-  "engines": { "node": "22.x" },
-  "scripts": {
-    "test": "node --test ops/test-hackathon.cjs"
-  }
-}

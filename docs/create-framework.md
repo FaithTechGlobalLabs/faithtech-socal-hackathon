@@ -1,63 +1,56 @@
-# The Create framework
+# The Create Cycle
 
-FaithTech Create is the shape of the day: **Lament, Discern, Build, Steward.** You do them in
-order, and your team keeps coming back to them.
+Redemptive technology starts before the code. Every team moves through the same four movements,
+and your team works through each step in [Pathfinder](pathfinder.md).
 
-| Step | What it is | When today |
+| Movement | When today | In one line |
 |---|---|---|
-| **Lament** | Start with what is broken. Name it honestly before you try to fix it. | Morning |
-| **Discern** | Listen, pray and choose. Your team names one direction. | Morning, with sticky notes |
-| **Build** | Make something real. | From 12:30 PM |
-| **Steward** | Look after what you made and what God did. | Mid-build, at demos, and after today |
+| **Lament** | 10:30 to 11:00 | We patiently refuse to rush past pain. |
+| **Discern** | 11:00 to 12:00 | We seek God's wisdom before choosing a response. |
+| **Build** | 12:30 to 4:00 | We faithfully build in dependence on the Spirit. |
+| **Steward** | 3:00 to 4:00 | We take responsibility for what we release. |
 
 ## Lament
 
-Lament means saying what hurts, to God and to each other, before jumping to a solution. We read
-Nehemiah 1 together. Nehemiah hears that the walls of Jerusalem are broken, and he sits down,
-weeps and prays before he does anything else.
+As a team, before anyone talks about solutions.
 
-For your team: say out loud what is broken for the pastors and new believers in your track.
-Write it down. Your lament goes into Pathfinder (see [Pathfinder](pathfinder.md)).
+- **Listen.** Who does your track serve? Whose pain have you heard?
+- **Remember.** Name the pain honestly. Who's left out, and why?
+- **Repent.** What in us needs to change?
+- **Rejoice.** Where have you already seen God at work?
 
 ## Discern
 
-Take your laments and choose. Use sticky notes, talk, pray, and decide as a team what you will
-build. By the end of this step your team names its direction in one sentence. Then build.
+Ideate, map the path, choose a direction.
+
+- **Ideate.** Get every idea out. No critique yet.
+- **Map the path.** Clarify the scope and what you hope to build today.
+- **Choose a direction.** Reject, receive, reimagine or create?
+
+Name your direction before lunch:
+
+> We help [audience] to [do the central atomic action] by [the technology you've created].
 
 ## Build
 
-We open the build with Hebrews 11:3 (NIV):
+> "By faith we understand that the universe was formed at God's command, so that what is seen was not made out of what was visible." (Hebrews 11:3, NIV)
 
-> "By faith we understand that the universe was formed at God's command, so that what is seen was not made out of what was visible."
+To create is an act of faith. Build is a rhythm, all afternoon: **pray, prototype, pause.** Repeat.
 
-Build is a loop: **pray, prototype, pause.**
-
-- **Pray.** Ask for help with the next small thing.
-- **Prototype.** Make something you can see working.
-- **Pause.** Stop and check in as a team. Is this still the thing we named? Is everyone okay?
-
-Repeat it more than once. There is a prayer pause for everyone together at 2:00 PM.
+At the **2:00 prayer pause**, ask as a team: Is this still what we discerned? Are people being
+loved well?
 
 ## Steward
 
-Steward is about looking after what you were given: the work, the team and what God did.
+At 3:00 we walk through what your demo needs, with a dry run at 3:45. Your demo follows the
+three steps of Steward:
 
-**In your demo,** cover three things:
+- **Tend.** Show it working, live.
+- **Examine.** The fruit and the risks.
+- **Testify.** What God did in your team.
 
-1. What did you build?
-2. How did your team experience it?
-3. What did God do?
-
-The demo is 3 minutes: the person you built it for, the prototype working, then your answer to those last two questions.
-It is a demo, not a pitch.
-
-**After today,** your work lives somewhere public: a GitHub repo if you have one, or a link. That is not about ownership. It means
-that if your team steps back, someone else can pick the work up and keep stewarding it. See
+**After today,** your work lives in a public repo. That is not about ownership. It means that if
+your team steps back, someone else can pick the work up and keep stewarding it. See
 [submission](submission.md).
-
-## Keep it simple
-
-You do not need to be an expert in any of this to take part. Come as you are, and ask a FaithTech
-mentor if something is unclear.
 
 Also see: [getting started](getting-started.md) · [judging](judging.md) · [ground rules](ground-rules.md)

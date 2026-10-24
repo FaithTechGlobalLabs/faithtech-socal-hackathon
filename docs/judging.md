@@ -1,47 +1,64 @@
 # Judging
 
-**As of Oct 23.** Three criteria, approved by the organizers. Judges score during demos.
-
-## Demo format
-
-- **Demos start at 4:30.** Each team gets **3 minutes**, then **2 minutes of questions**.
-- Start with your track and **the person you built it for**. Then Tend, Examine, Testify: who it serves and how you'll keep caring for it, an honest look at the fruit and the risks, and what God did in your team.
-- **Demo on a phone** if you can, and have a **backup video** ready ([how to make one](demo-video.md)).
-- It is a **demo, not a pitch.** We already know the problem.
-- Judges get a quick Claude read of each repo or link before demos, so a clear README helps.
+Judges score each team 1 to 5 on three questions. Redemptive potential carries 40% of the score,
+and the other two carry 30% each.
 
 ## How each team is scored
 
-Each judge scores 1 to 5 on three questions.
-
-| Weight | Criterion | The question a judge asks |
+| Criterion | The question | Scores a 5 when |
 |---|---|---|
-| **40%** | **Redemptive potential** | Could this advance the gospel and reach real people, beyond the demo? |
-| **30%** | **Usable by the end user** | Could a pastor, a new believer or a church volunteer use it without us in the room? |
-| **30%** | **Technical viability** | Does it work live, end to end, and could it fit into Baptize's tech stack? |
+| **Redemptive potential (40%)** | Could this advance the gospel and reach real people, beyond the demo? | Real people could meet, follow or share Jesus through it long after today. |
+| **Usable by the end user (30%)** | Could a pastor, a new believer or a church volunteer use it without us in the room? | A pastor or volunteer could pick it up today with no help. |
+| **Technical viability (30%)** | Does it work live, end to end, and could it fit into Baptize The World's tech stack? | It runs live, end to end, and could plug into Baptize The World's tools. |
 
-Each team's score is the weighted average across judges. For Baptize's stack and what exists today, see [How Baptize works today](baptize-today.md).
+For Baptize's stack and what exists today, see [how Baptize works today](baptize-today.md).
 
-## Honors
+## Demos
 
-Announced at the close, in this order:
+Demos run from 4:15 to 5:00. Three minutes per team, then two minutes of questions.
 
-| Honor | Picked by |
+| Time | Beat | What to show |
+|---|---|---|
+| 0:00 to 0:30 | **Your track** | Who it's for. |
+| 0:30 to 2:00 | **Tend** | Show it working, live. |
+| 2:00 to 2:30 | **Examine** | The fruit and the risks. |
+| 2:30 to 3:00 | **Testify** | What God did in your team. |
+
+- **Demo on a phone.**
+- **Have a backup video** ([how to make one](demo-video.md)).
+- **Start with a person.** It is a demo, not a pitch. We already know the problem.
+
+## Team honors
+
+Announced at 5:15.
+
+| Honor | Picked by | What it means |
+|---|---|---|
+| **Most Redemptive** | Top score | Deployable and ready for impact: viable, and built in the way of Jesus. |
+| **Most Collaborative** | Mentors' pick | Built best together. Every member shaped the work. |
+| **Most Creative** | Judges' pick | The most imaginative answer to the challenge. |
+
+Winning teams take home bags of coffee and a certificate.
+
+## Mentors and judges
+
+They're here to coach, not to code. They walk the floor every hour, ask questions that keep your
+team honest, and help you cut scope early.
+
+| Name | Role |
 |---|---|
-| **Most Redemptive** | The highest score above |
-| **Most Collaborative** | The mentors |
-| **Most Creative** | The judges |
-
-Each winning team gets a $100 Claude gift to keep building. An optional **Baptize's Pick** may be chosen by Pastor Calin.
-
-## Judges
-
-Travis, Dana, Holly, Pastor Calin and Jesse (to be confirmed).
+| Travis Johnson | Mentor and judge |
+| Dana Calit | Mentor and judge |
+| Holly Dunlap | Mentor and judge |
+| Arren Bustamante | Mentor |
+| Pastor Calin, Baptize The World | Mentor and judge |
+| Jesse Eshleman, FaithTech | Judge |
 
 ## What helps
 
 - A prototype that runs, even if small. Mocked parts are fine if you say which.
-- A README a stranger can follow ([template](../templates/TEAM-README.md)).
+- A README a stranger can follow ([template](../templates/TEAM-README.md)). Judges may read it
+  before your demo.
 - Following the [ground rules](ground-rules.md).
 
-See also: [submission](submission.md) · [demo video](demo-video.md) · [the Create framework](create-framework.md)
+See also: [submission](submission.md) · [demo video](demo-video.md) · [the Create Cycle](create-framework.md)

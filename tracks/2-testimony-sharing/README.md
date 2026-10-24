@@ -12,7 +12,7 @@ Every baptism is a story worth telling. Today a shareable testimony depends on s
 - How might we turn a raw story into something a person actually wants to post?
 - How might we get the best stories to the Baptize team, with permission, so the movement can tell them too?
 
-**Done at 6 PM looks like:** someone who was baptized opens a link, answers a few guided prompts (typed, spoken or a short video), and leaves with a testimony they can post right away, without anyone at a church touching it. If they say yes, the Baptize team can see the story and feature it.
+**A strong demo looks like:** someone who was baptized opens a link, answers a few guided prompts (typed, spoken or a short video), and leaves with a testimony they can post right away, without anyone at a church touching it. If they say yes, the Baptize team can see the story and feature it.
 
 **Must also:** nothing goes public without the person's OK, and anyone under 18 needs a parent or guardian's OK.
 

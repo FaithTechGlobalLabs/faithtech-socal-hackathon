@@ -14,6 +14,9 @@ team needs it; everyone can have one.
 3. Tick **Add a README** and choose an **MIT** license.
 4. Add teammates under Settings, then Collaborators.
 
+Want your repo in FaithTech's GitHub org instead? Ask Travis or Jesse to add you, and have your
+GitHub username ready.
+
 Public is a rule: it lets someone pick the work up later. See
 [the README](../README.md#why-the-code-lives-on-github).
 
@@ -54,5 +57,5 @@ plain words.
 
 ## Next
 
-[The Create framework](create-framework.md) · [Pathfinder](pathfinder.md) ·
+[The Create Cycle](create-framework.md) · [Pathfinder](pathfinder.md) ·
 [Submit by 4:00 PM](submission.md)
